@@ -6,7 +6,7 @@
 	<script src="http://code.jquery.com/jquery-2.1.1.js"></script>
 	<!-- materialize -->
 	<script type="text/javascript" src="js/materialize.js"></script>
-	<link rel="stylesheet" type="text/css" href="css/materialize.css"> 
+	<link rel="stylesheet" type="text/css" href="https://github.com/zhangzlun/Project/blob/master/css/materialize.min.css"> 
 	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <script>
@@ -68,7 +68,7 @@
 				dataArray.push('<td>'+value.product_name+'</td>');
 				dataArray.push('<td>'+value.product_code+'</td>');
 				dataArray.push('<td>'+value.quantity+'</td>');
-				dataArray.push('<td>'+value.unit +'</td>');
+				dataArray.push('<td>'+value.unit+'</td>');
 				dataArray.push('<td>'+value.price+'</td>');
 				dataArray.push('<td>'+value.tax+'</td>');
 				dataArray.push('<td>'+value.fee_date+'</td>');
@@ -183,10 +183,6 @@
 		});
 	}
 
-	var delb = function(){
-		$('input').change('display_h');
-	}
-
 
 	$(document).ready(function () {
 		show();
@@ -229,7 +225,6 @@
 <main >
 	<div class="inputdata">
 		<h5>新增</h5>
-		
 	</div>
 
 
@@ -237,16 +232,16 @@
 	    <form class="col s12">
 	      <div class="row">
 	        <div class="input-field col s3">
-	          <input type="text" name="purchase_no" class="validate">
-	          <label for="purchase_no">進貨編號</label>
-	        </div>
-	         <div class="input-field col s3">
-	          <input type="text" name="vendor_no" class="validate">
-	          <label >廠商編號</label>
-	        </div>
-	        <div class="input-field col s3">
-	          <input type="text" name="product_name"  class="validate">
-	          <label>產品名稱</label>
+				<input type="text" name="purchase_no" class="validate">
+				<label for="purchase_no">進貨編號</label>
+			</div>
+			<div class="input-field col s3">
+				<input type="text" name="vendor_no" class="validate">
+				<label >廠商編號</label>
+			</div>
+			<div class="input-field col s3">
+				<input type="text" name="product_name"  class="validate">
+				<label>產品名稱</label>
 	        </div>
 	       <div class="input-field col s3">
 	          <input type="text" name="product_code" class="validate">
@@ -318,8 +313,6 @@
 	      <a onclick="upd()" class="btn">修改</a>
 	    </form>
 	  </div>
-
-
 
 
 
