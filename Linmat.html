@@ -62,6 +62,7 @@
 		var dataArray = new Array();
 		$.each(response.purchase_data, function(key, value) {
 			dataArray.push('<tr class="thover" id="'+value.purchase_no+'">');
+
 				dataArray.push('<td>'+value.purchase_no+'</td>');
 				dataArray.push('<td>'+value.vendor_no+'</td>'); 
 				dataArray.push('<td>'+value.product_name+'</td>');
@@ -79,6 +80,7 @@
 				dataArray.push('<td>'+value.emp_no+'</td>');
 				dataArray.push('<td>'+value.enter_date+'</td>');
 				dataArray.push('<td>'+value.summary+'</td>');
+
 				dataArray.push('<td>'+'<button  onclick="delb()">刪除</button>'+'</td>'); 
 			dataArray.push('</tr>');
 
@@ -93,9 +95,25 @@
 	var out = function (){
 
 		var s1 = $('input[name=purchase_no]').val();
+		var s2 = $('input[name=vendor_no]').val();
 		var s3 = $('input[name=product_name]').val();
-		var post_data = {purchase_no:s1, product_name:s3 };
-		// alert(JSON.stringify(post_data));
+		var s4 = $('input[name=product_code]').val();
+		var s5 = $('input[name=quantity]').val();
+		var s6 = $('input[name=unit]').val();
+		var s7 = $('input[name=price]').val();
+		var s8 = $('input[name=tax]').val();
+		var s9 = $('input[name=fee_date]').val();
+		var s10 = $('input[name=vendor_sales]').val();
+		var s11 = $('input[name=voucher_no]').val();
+		var s12 = $('input[name=debit_code]').val();
+		var s13 = $('input[name=credit_code]').val();
+		var s14 = $('input[name=project_no]').val();
+		var s15 = $('input[name=emp_no]').val();
+		var s16 = $('input[name=enter_date]').val();
+		var s17 = $('input[name=summary]').val();
+
+		var post_data = {purchase_no:s1,vendor_no:s2, product_name:s3, product_code:s4, quantity:s5, unit:s6, price:s7, tax:s8 , fee_date:s9, vendor_sales:s10 , voucher_no:s11, debit_code:s12, credit_code:s13, project_no:s14, emp_no:s15 , enter_date:s16, summary:s17};
+		alert(JSON.stringify(post_data));
 
 		var bruce = new Bruce();
 		bruce.setData(post_data);
@@ -135,23 +153,24 @@
 	var getOne = function(purchase_no) {
 		$.each(getData, function(key, value) {
 			if(purchase_no===value.purchase_no) {
-				$('input[name=purchase_no]').val(value.purchase_no);
+				$('input[name=purchase_no]').val(value.purchase_no); 
+				$('input[name= vendor_no]').val(value.vendor_no);
 				$('input[name=product_name]').val(value.product_name);
-				$('input[name=product_name]').val(value.product_name);
-				$('input[name=product_name]').val(value.product_name);
-				$('input[name=product_name]').val(value.product_name);
-				$('input[name=product_name]').val(value.product_name);
-				$('input[name=product_name]').val(value.product_name);
-				$('input[name=product_name]').val(value.product_name);
-				$('input[name=product_name]').val(value.product_name);
-				$('input[name=product_name]').val(value.product_name);
-				$('input[name=product_name]').val(value.product_name);
-				$('input[name=product_name]').val(value.product_name);
-				$('input[name=product_name]').val(value.product_name);
-				$('input[name=product_name]').val(value.product_name);
-				$('input[name=product_name]').val(value.product_name);
-				$('input[name=product_name]').val(value.product_name);
-				$('input[name=product_name]').val(value.product_name);
+				$('input[name=product_code]').val(value.product_code);
+				$('input[name=quantity]').val(value.quantity);
+				$('input[name=unit]').val(value.unit);
+				$('input[name=price]').val(value.price);
+				$('input[name=tax]').val(value.tax);
+				$('input[name=fee_date]').val(value.fee_date);
+				$('input[name=vendor_sales]').val(value.vendor_sales);
+				$('input[name=voucher_no]').val(value.voucher_no);
+				$('input[name=debit_code]').val(value.debit_code);
+				$('input[name=credit_code]').val(value.credit_code);
+				$('input[name=project_no]').val(value.project_no);
+				$('input[name=emp_no]').val(value.emp_no);
+				$('input[name=enter_date]').val(value.enter_date);
+				$('input[name=summary]').val(value.summary);
+
 			}
 		});
 	}
@@ -306,7 +325,7 @@
 
 	<table border="3" style="border-collapse:collapse;" >
 		<thead >
-			<tr><th>進貨編號</th><th>產品名稱</th></tr>
+			<tr><th>進貨編號</th><th>產品名稱</th><th>產品名稱</th><th>產品名稱</th><th>產品名稱</th><th>產品名稱</th><th>產品名稱</th><th>產品名稱</th><th>產品名稱</th><th>產品名稱</th><th>產品名稱</th><th>產品名稱</th><th>產品名稱</th><th>產品名稱</th><th>產品名稱</th><th>產品名稱</th><th>產品名稱</th></tr>
 		</thead>
 		<tbody id="lists">
 		</tbody>
