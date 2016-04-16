@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>JSON HOME</title>
+	<script src="http://code.jquery.com/jquery-2.1.1.js"></script>
+	<script src="js/jquery-2.1.4.min.js"></script>
+	<!-- 假資料 JS -->
+	<script src="Simple.js"></script>
+	<!-- materialize -->
+	<script type="text/javascript" src="js/materialize.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/materialize.css"> 
+	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<script>
+body {
+  background: #333;
+  font-size: 1em;
+  color: #f0f0f0;
+  line-height: 1.1em;
+}
+a {
+  text-decoration: none;
+  &:hover {
+    position: relative;
+    top: 1px;
+    left: 1px;
+  }
+}
+section {
+  width: 500px;
+  margin: 0 auto;
+  background: #555;
+  padding: 1em;
+  overflow: hidden;
+  div {
+    margin: 0 0 2em 0;
+  }
+}
+header {
+  background: #d9444a;
+  text-align: center;
+  color: #fff;
+  font-size: .5em;
+  padding: .7em 0;
+  a {
+    color: rgba(255,255,255,.6);
+    @include text-shadow(1px 1px 1px #973735);
+  }
+  &:after {
+    content: " ";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-width: 10px;
+    border-style: solid;
+    border-color: #d9444a transparent transparent transparent;
+    top: 53px;
+    left: 50%;
+  }
+}
+
+h2 {
+  font-size: 1em;
+  margin: 0 0 .5em 0;
+  background: #444;
+  display: inline-block;
+  padding: .5em 1.2em;
+  position: relative;
+  left: -1em;
+}
+
+/* search layout start (you can skip it) */
+.search-form {
+  text-align: right;
+  input {
+    border: none;
+    padding: .5em;
+    background: rgba(255,255,255,.5);
+    color: #555;
+  }
+  button {
+    @extend input;
+  }
+}
+
+.wrap {
+  display: table;
+  background: #888;
+  margin-right: .5em;
+  padding: .5em;
+  width: 46%;
+  float: left;
+  &:nth-child(odd) {
+    margin-right: 0;
+  }
+  img {
+    display: inline-block;
+  }
+  .name {
+    display: table-cell;
+    width: 90%;
+    vertical-align: middle;
+    position: relative;
+    left: 1em;
+  }
+}
+</script>
+<style type="text/css">
+	.login{
+		/*position: fixed;*/
+		left:600px;
+	}
+	.inputdata{
+		position: fixed;
+		left:600px;
+	}
+	.thover:hover{
+		background-color:#d0d0d0;
+	}
+	.on{
+		background-color:#d0d0d0;
+	}
+	.display_h{
+		display:none;
+	}
+</style>
+<body>
+HTML  SCSS  JS  Result
+Edit on 
+<header>
+  Search single page by CSS:not<br />
+  <a href="http://blog.mukispace.com/pure-css-tooltip-data-tag‎/" target="_blank">(http://blog.mukispace.com/full-text-search-by-css/)‎</a>
+</header>
+<section>
+  <div class="search-form"><input id="search-input" type="text" placeholder="type name to search" /><button>Search</button>
+    <style id="m-search"></style>
+  </div>
+  <div class="wrap" data-index="ju chu ko">
+    <img src="http://lorempixel.com/40/40/people/1" border="0" />
+    <div class="name">Ju Chu Ko</div>
+  </div>
+   <div class="wrap" data-index="browny lin">
+    <img src="http://lorempixel.com/40/40/people/2" border="0" />
+    <div class="name">Browny Lin</div>
+  </div>
+   <div class="wrap" data-index="妙卡甜心">
+    <img src="http://lorempixel.com/40/40/people/3" border="0" />
+    <div class="name">妙卡甜心</div>
+  </div>
+   <div class="wrap" data-index="mr.壞">
+    <img src="http://lorempixel.com/40/40/people/4" border="0" />
+    <div class="name">Mr.壞</div>
+  </div>
+   <div class="wrap" data-index="come on">
+    <img src="http://lorempixel.com/40/40/people/5" border="0" />
+    <div class="name">Come On!</div>
+  </div>
+   <div class="wrap" data-index="lester">
+    <img src="http://lorempixel.com/40/40/people/6" border="0" />
+    <div class="name">Lester</div>
+  </div>
+   <div class="wrap" data-index="林大中">
+    <img src="http://lorempixel.com/40/40/people/7" border="0" />
+    <div class="name">林大中</div>
+  </div>
+   <div class="wrap" data-index="高國滑">
+    <img src="http://lorempixel.com/40/40/people/8" border="0" />
+    <div class="name">高國滑</div>
+  </div>
+   <div class="wrap" data-index="kun1342">
+    <img src="http://lorempixel.com/40/40/people/9" border="0" />
+    <div class="name">Kun1342</div>
+  </div>
+   <div class="wrap" data-index="jimmy ku">
+    <img src="http://lorempixel.com/40/40/people/10" border="0" />
+    <div class="name">Jummy Ku</div>
+  </div>
+</section>
+ 
+</body>
+</html>
+  

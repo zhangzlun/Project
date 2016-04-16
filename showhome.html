@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>JSON</title>
+	<script src="http://code.jquery.com/jquery-2.1.1.js"></script>
+	<script type="text/javascript" src="js/materialize.js"></script>
+	<script src="Simple.js"></script>
+	<script src="js/jsont.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/materialize.css"> 
+	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<script>
+
+
+	var Bruce = function() {
+
+		this.type = 'POST';
+		this.dataType = 'json';
+		this.isAsync = false;
+		this.postData = {};
+
+		this.getJSON = function(url) {
+			var result;
+			$.ajax({
+				type: this.type,
+				url: url,
+				data: this.postData,
+				dataType: this.dataType,
+				async: this.isAsync,
+				success: function(response) {
+					result = response;
+				},
+				error: function(XMLHttpRequest) {
+					//alert(XMLHttpRequest.status);
+					result = {Status: -1, Result: XMLHttpRequest.status};
+				}
+			});
+			return result;
+		}
+
+		this.setType = function(type) {
+			this.type = type; 
+		}
+
+		this.setData = function(sendData) {
+			this.postData = sendData;
+		}
+
+		this.showJSON = function(url, target) {
+			var a = JSON.stringify(this.getJSON(url));
+			$(target).html(a);
+		} 
+	}
+	
+
+	var send = function() {
+		var s1 = $('input[name=doc_no]').val();
+		var s2 = $('input[name=doc_name]').val();
+		var s3 = $('input[name=department]').val();
+		var s4 = $('input[name=empno]').val();
+		var post_data = {doc_no:s1, doc_name:s2, department:s3, empno:s4, func:1 };
+		// alert(JSON.stringify(post_data));
+
+		var bruce = new Bruce();
+		bruce.setData(post_data);
+		var response = bruce.getJSON('http://www.daren.idv.tw/Test/Document');
+		// alert(JSON.stringify(response));
+
+	}
+	
+
+	var show = function() {
+
+		var s1 = $('input[name=doc_no]').val();
+		var s2 = $('input[name=doc_name]').val();
+		var s3 = $('input[name=department]').val();
+		var s4 = $('input[name=empno]').val();
+		var post_data = {doc_no:s1, doc_name:s2, department:s3, empno:s4 };
+		// alert(JSON.stringify(post_data));
+
+		var bruce = new Bruce();
+		bruce.setData(post_data);
+		var response = bruce.getJSON('http://www.daren.idv.tw/Test/Document');
+		var result = response.MySQL;
+
+		// alert(JSON.stringify(result));
+
+		var dataArray = new Array();
+
+		$.each(result, function(key, value) {
+			dataArray.push('<tr id="'+value.doc_no+'">');
+
+			dataArray.push('<td>'+value.doc_no+'</td>');
+			dataArray.push('<td>'+value.doc_name+'</td>');  
+			dataArray.push('<td>'+value.department  +'</td>');
+			dataArray.push('<td>'+value.empno+'</td>');
+			dataArray.push('<td>'+value.audit_day+'</td>');
+
+			dataArray.push('</tr>');
+		});
+		$('tbody#list').html(dataArray.join(""));
+	}
+
+
+	var showdata = function() {
+		var dataArray = new Array();
+
+		$.each(result, function(key, value) {
+			dataArray.push('<tr id="'+value.doc_no+'">');
+
+			dataArray.push('<td>'+value.doc_no+'</td>');
+			dataArray.push('<td>'+value.doc_name+'</td>');  
+			dataArray.push('<td>'+value.department  +'</td>');
+			dataArray.push('<td>'+value.empno+'</td>');
+			dataArray.push('<td>'+value.audit_day+'</td>');
+
+			dataArray.push('</tr>');
+		});
+		$('tbody#list').html(dataArray.join(""));
+	}
+
+	// var getOne = function(doc_no) {
+
+	// 	$.each(showDataa, function(key, value) {
+	// 		if(doc_no===value.doc_no) {
+	// 			$('input[name=doc_no]').val(value.doc_no);
+	// 			$('input[name=doc_name]').val(value.doc_name);
+	// 			$('input[name=department]').val(value.department);
+	// 			$('input[name=empno]').val(value.empno);
+
+	// 		}
+	// 	});
+
+	}
+
+
+	$(document).ready(function () {
+		// showdata();
+		$('#list tr').addClass('thover');
+		$('#list tr').click(function(){
+			$(this).addClass('on').siblings('.on').removeClass('on');
+			//alert($(this).attr('id'));
+			getOne($(this).attr('id'));
+		});
+
+
+	});
+
+</script>
+<style type="text/css">
+	.login{
+		position: fixed;
+		left:600px;
+	}
+	.inputdata{
+		position: fixed;
+		left:600px;
+	}
+	.thover:hover{
+		background-color:#d0d0d0;
+	}
+	.on{
+		background-color:#d0d0d0;
+
+	}
+	.display_h{
+		display:none;
+	}
+
+</style>
+<body>
+	
+<main >
+	<div class="inputdata">
+		<h5>新增 修改 刪除</h5>
+		<input type="text" name="doc_no" placeholder="輸入編號" value="R77" ></input><br>
+		<input type="text" name="doc_name" placeholder="輸入文件名稱" value="廠商合約"></input><br>
+		<input type="text" name="department" placeholder="輸入部門" value="會計部"></input><br>
+		<input type="text" name="empno" placeholder="輸入保管人" value="張志綸"></input><br>
+		<button onclick="show()">送出</button>
+		<button onclick="update()">更新</button>
+		<button onclick="delete()">刪除</button>
+	</div>
+
+
+	<div class="row">
+		<div id="bpeople_test" class="col m5">
+			<table border="1" style="border-collapse:collapse;" class="bordered" >
+				<thead >
+					<tr class="thead" ><th>編號</th><th>文件名稱</th><th>部門</th><th>保管人</th><th>時間</th></tr>
+				</thead>
+				<tbody id="list">
+					<tr class="thover"></tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+
+
+ </main>
+ 
+</body>
+</html>
+  

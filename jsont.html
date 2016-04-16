@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>JSON</title>
+  <script src="js/jquery-2.1.4.min.js"></script>
+  <!-- <link rel="stylesheet" type="text/css" href="css/materialize.css">  -->
+</head>
+<script >
+	checkRegAcc = function (){
+	  $.ajax({
+	    url: 'id_validate.php',
+	    type: 'GET',
+	    data: {
+	      user_name: $('#user_name').val()
+	    },
+	    error: function(xhr) {
+	      alert('Ajax request 發生錯誤');
+	    },
+	    success: function(response) {
+	        $('#msg_user_name').html(response);
+	        $('#msg_user_name').fadeIn();
+	 
+	    }
+	  });
+	};
+	checkRegAcc = function (){
+	  alert($('#user_name').val());
+	  $.getJSON('id_validate.php?type=json&#038;method=checkRegisterAccount', 
+	      {user_name: $('#user_name').val()},
+	      function(ret) {
+	         $('#msg_user_name').html(ret);
+	      });
+	 
+	};
+	$('#user_name').blur(checkRegAcc); 
+
+	
+	$(document).ready(function () {
+	  showdata();
+	});
+
+</script>
+<style type="text/css">
+	.inputdata{
+		position: absolute;
+		left:600px;
+	}
+</style>
+<body>
+ 	<p><input type="text" name="user_name" size="20" id="user_name"><span id="msg_user_name"></span></p>
+</body>
+</html>

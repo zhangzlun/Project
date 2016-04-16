@@ -2,312 +2,239 @@
 <html lang="zh-TW">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>APP操作流程說明</title>
 	<script src="../js/jquery-2.1.4.min.js"></script>
-	<script type="text/javascript" src="../js/materialize.js"></script>
+	<script type="text/javascript" src="js/materialize.js"></script>
+	<script type="text/javascript" src="Simple.js"></script>
 	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link type="text/css" rel="stylesheet" href="../css/materialize.css"  media="screen,projection"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<link rel="stylesheet" href="../css/animate.css">
+	<link rel="stylesheet" href="project.css">
 </head>
 <script >
 	$(document).ready(function(){
 		$(".button-collapse").sideNav();
-		 $('.modal-trigger').leanModal();
+		$('.modal-trigger').leanModal();
+		$('.materialboxed').materialbox();
+		$('.dropdown-button').dropdown({	
+		      inDuration: 300,
+		      outDuration: 225,
+		      constrain_width: true, // Does not change width of dropdown to that of the activator
+		      hover: true, // Activate on hover
+		      gutter: 0, // Spacing from edge
+		      belowOrigin: false, // Displays dropdown below the button
+		      alignment: 'right' // Displays dropdown with edge aligned to the left of button
+		    });
+		$('.datepicker').pickadate({
+		    selectMonths: true, // Creates a dropdown to control month
+		    selectYears: 15 // Creates a dropdown of 15 years to control year
+		  });
+		$('select').material_select();	
+	
 	});
 
 </script>
 <style type="text/css">
-	header .imves{
-		position:absolute;
-	/* 	top:-20px;*/
-	 	width: 100%;
-	 	height: 600px;
-	 	overflow: hidden;
-	} 
-	header .imves .bigimg img{
-		position: fixed;
-	    top: 50%;
-	    left: 50%;
-	    transform: translateX(-50%) translateY(-50%);
-	    min-width: 100%;
-	    min-height: 100%;
-	    width: auto;
-	    height: auto;
-	    z-index: -100;
-	  	background-size: cover;
-	  	}
-	header nav a{
-		font-size:20px;
-		font-weight: 900;
-		font-family:Microsoft JhengHei;
+	body{
+		background-color: rgb(255, 255, 253);
 	}
-	header nav {
-		background: rgba(71,163,255,0.7) !important;
-	}
-	header .iconbtu{
-		
-	}
-	header #Introduction{
-		position: absolute;
-		width: 160px !important;
-		top: 120px;
-		left: 215px;
-	}
-	.imgExpla{
-		margin-left: -11px !important;
-	}
-	
-	.NEWS{
-		position: absolute;
-		/*background-color: red;*/
-		width: 101px;
-		height: 93px;
-		z-index: 99;
-		top:123px;
-		left: 5px;
-	}
-	.NEWS a{
-		position: absolute;
-		width: 101px;
-		height: 93px;
-		z-index: 99;
-		background: rgba(0,0,0,0) !important;
-	}
-	.Outpatient{
-		position: absolute;
-		/*background-color: red;*/
-		width: 103px;
-		height: 93px;
-		z-index: 99;
-		top:123px;
-		left: 118px;
-	}
-	.Outpatient a{
-		position: absolute;
-		width: 103px;
-		height: 93px;
-		z-index: 99;
-		background: rgba(0,0,0,0) !important;
-	}
-	.service{
-		position: absolute;
-		/*background-color: red;*/
-		width: 103px;
-		height: 93px;
-		z-index: 99;
-		top:220px;
-		left: 5px;
-	}
-	.service a{
-		position: absolute;
-		width: 103px;
-		height: 93px;
-		z-index: 99;
-		background: rgba(0,0,0,0) !important;
-	}
-	.Resources{
-		position: absolute;
-		/*background-color: red;*/
-		width: 103px;
-		height: 93px;
-		z-index: 99;
-		top:220px;
-		left: 118px;
-	}
-	.Resources a{
-		position: absolute;
-		width: 103px;
-		height: 93px;
-		z-index: 99;
-		background: rgba(0,0,0,0) !important;
-	}
-	.activity{
-		position: absolute;
-		/*background-color: red;*/
-		width: 65px;
-		height: 50px;
-		z-index: 99;
-		top:320px;
-		left: 142px;
-	}
-	.activity a{
-		position: absolute;
-		width: 65px;
-		height: 50px;
-		z-index: 99;
-		background: rgba(0,0,0,0) !important;
-	}
-	.Signup{
-		position: absolute;
-		/*background-color: red;*/
-		width: 60px;
-		height: 45px;
-		z-index: 99;
-		top:377px;
-		left: 86px;
-	}
-	.Signup a{
-		position: absolute;
-		width: 60px;
-		height: 45px;
-		z-index: 99;
-		background: rgba(0,0,0,0) !important;
-	}
-	.Questi{
-		position: absolute;
-		/*background-color: red;*/
-		width: 105px;
-		height: 50px;
-		z-index: 99;
-		top:430px;
-		left: 240px;
-	}
-	.Questi a{
-		position: absolute;
-		width: 105px;
-		height: 50px;
-		z-index: 99;
-		background: rgba(0,0,0,0) !important;
-	}
-	.boxin{
-		width: 300px !important;
-		height: 400px !important;
-	}
-	.stepall{
+	.ftitle{
 		position: relative;
-		margin-left: 3%!important;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 78%;
 	}
-	.stepall .step1 p{
-		font-size:20px;
-		font-weight: 900;
-		font-family:Microsoft JhengHei;
-		color: #FFF;
-	}
-	.stepall .step1 img{
+	.maincontent{
 		position: relative;
-		top:-100px;
-		left: 400px;
+		right: 0;
+		left:0;
+	    margin:auto;
+		width: 78%;
 	}
-	.step1{
+	.present .presentin{
 		position: relative;
-		display: block;
-		/*background-color: red;*/
-		width: 400px;
-		height: 632px;
-		top:0px;
-		left: -5px !important;
+		background-color: rgb(255, 255, 253);
+		width: 150px;
+		height: 500px;
+		border: 2px  solid; 
+		margin-right:-2px; 
+		margin-bottom:-2px;
+		border-color:#d0d0d0;
+		overflow: hidden;
 	}
-	.collapsible{
-		background: rgba(0,0,0,0) !important;
-		border-width:0px;
+	.present .presentinr{
+		background-color: #FFF;
+		width: 150px;
+		height: 500px;
+		border-style:solid;
+		border-width:1px;
+		border-left-width: 0px;
+		border-color:#d0d0d0;
 	}
-	#stepimg{
-		position: relative;
-		top:0px;
-		left: 5px;
+	.presentbox{
+		position: absolute;
+		bottom: 15px;
 	}
-	@media only screen and (max-width:800px) {
-	  nav .brand-logo {
-	    left: 50%;
-	    -webkit-transform: translateX(-50%);
-	            transform: translateX(-50%);
-	  }
-	  @media only screen and (max-width: 1000px) {
-	    .side-nav.fixed {
-	      left: -105%;
-	    }
-	    .side-nav.fixed.right-aligned {
-	      right: -105%;
-	      left: auto;
-	    }
-	  }
+	.presentbox .presentimg{
+		height: 300px;
+		overflow: hidden;
+	}
+	.presentbox .presentimg img{
+		background-size: cover;
+	}
+	.presentbox .presentimg .collection li{
+		background-color: rgb(255, 255, 253);
+	}
+
 </style>
 <body>
+
 	<header>
-	<div class="row">
-		<nav>
+		<nav class="z-depth-0">
 		    <div class="nav-wrapper">
-		      <a href="#" class="brand-logo">APP操作流程說明</a>
-		      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-		      <ul id="nav-mobile" class="right hide-on-med-and-down">
-		        <li><a class="modal-trigger iconbtu" href="#download"><i class="material-icons">file_download</i></a>
-		        </li>
-		        <li><a href="badges.html"><i class="material-icons">view_module</i></a></li>
+		      <a href="#" class="brand-logo">APP操作流程</a>
+		      <ul id="nav-mobile" class="right hide-on-med-and-down centerin">
 		        <li><a class="modal-trigger" href="#modal8">關於我們</a></li>
-		      </ul>
-		      <ul class="side-nav" id="mobile-demo">
-		        <li><a href="sass.html">Sass</a></li>
-		        <li><a href="badges.html">Components</a></li>
-		        <li><a href="collapsible.html">Javascript</a></li>
-		        <li><a href="mobile.html">Mobile</a></li>
+		        <li><a class="modal-trigger" href="#modal7">活動報名</a></li>
+		        <li><a class="" href="activity.php">表單</a></li>
 		      </ul>
 		    </div>
-		</nav>
-		<div class="imves">
-			<div class="bigimg">
-				<img src="nature_hd_best_of_nature_05_4724_10.jpg">
+		  </nav>
+		  <div id="fakenav"></div>
+		  <!-- 背景圖 -->
+			<div class="imves">
+				<div class="bigimg">
+					<img src="img/">
+				</div>
 			</div>
-		</div>
-		<div class="bottomIntroduction col s12 m6 l4">
-			<div id="Introduction" class="col s12 m5 z-depth-0">
-			    <div class="card-panel teal">
-			         <span class="white-text">
-			         	APP功能介紹
-			        </span>
-			    </div>
-			</div>
-		</div>
-	</div>
 	</header>
 	<main>
 		<div class="row">
-			<div class="imgExpla col s12 m6 l3">
-				<div class="NEWS box"><a class="modal-trigger z-depth-0 btn" href="#modal1"></a></div>
-				<div class="Outpatient box"><a class="modal-trigger z-depth-0 btn" href="#modal2"></a></div>
-				<div class="service box"><a class="modal-trigger z-depth-0 btn" href="#modal3"></a></div>
-				<div class="Resources box"><a class="modal-trigger z-depth-0 btn" href="#modal4"></a></div>
-				<div class="activity box"><a class="modal-trigger z-depth-0 btn" href="#modal5"></a></div>
-				<div class="Signup box"><a class="modal-trigger z-depth-0 btn" href="#modal6"></a></div>
-				<div class="Questi box"><a class="modal-trigger z-depth-0 btn" href="#modal7"></a></div>
-				<img src="未命名-1.png" alt="">
-			</div>
-			<!-- APP使用流程 -->
-			<div class="stepall col s12 m6 l4">
-				<div class="step1">
-					<ul class="collapsible z-depth-0" data-collapsible="accordion">
-						<li>
-					      <div class="collapsible-header card-panel teal z-depth-0"><span class="white-text">
-					      APP使用流程</span></div>
-					    </li>
-					    <li>
-					      <div class="collapsible-header card-panel teal z-depth-0"><span class="white-text">
-					      1.可由最新消息及服務項目得知想知道的資訊。</span></div>
-					      <!-- <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div> -->
-					    </li>
-					    <li>
-					      <div class="collapsible-header card-panel teal z-depth-0"><span class="white-text ">
-					      2.進入活動報名登入，開始輸入基本的個人資料。</br>(點我開啟圖片)</span></div>
-					      <div class="collapsible-body">
-					      	<p style="color: black; font-weight: 900;">傳送的資料會用於登入及管理方統計 不會對外公開 APP 操作流程說明 </p>
-					      	<img id="stepimg" src="text1.jpg" style="width: 300px" alt="">
-					      </div>
-					    </li>
-					    <li>
-					      <div class="collapsible-header card-panel teal z-depth-0"><span class="white-text">
-					      3.進入活動登入畫面後，輸入完個資按下"確定"，即完成報名，如果需要得知方才輸入的資訊則按下"顯示"。</span></div>
-					      <!-- <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div> -->
-					    </li>
-					    <li>
-					      <div class="collapsible-header card-panel teal z-depth-0"><span class="white-text">
-					      4.當使用完登入之後，返回至頁面，按下前往問卷，點選完問題之後方可結束。</span></div>
-					      <!-- <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div> -->
-					    </li>
-					</ul>
+			<div class="appability">
+				<div class="ftitle ">
+					<h2>衛生所APP應用程式介紹</h2>
+				</div>
+				<div class="maincontent">
+					<div class="present">
+						<div class="row">
+							<!-- 第一排區塊1 -->
+							<div class="presentin col s12 m6 l6">
+								<div class="ititle center-align">
+									<h4>使用流程</h4>
+								</div>
+								<div class="ititlep">
+									<p class="left-align">如果您是第一次使用這格APP或是對次APP不太熟悉的使用者可以參考下面的步驟使用APP</p>
+								</div>
+								<div class="row">
+									<div class="presentbox">
+										<div class="presentimg">
+											<ul class="collection  col s11 m11">
+											     <li class="collection-item">1.可由最新消息及服務項目得知想知道的資訊。 </li>
+											     <li class="collection-item">2.進入活動報名登入，開始輸入基本的個人資料。</li>
+											     <li class="collection-item">
+											     3.進入活動登入畫面後，輸入完個資按下"確定"，即完成報名，如果需要得知方才輸入的資訊則按下"顯示"。</li>
+											     <li class="collection-item">4.當使用完登入之後，返回至頁面，按下前往問卷，點選完問題之後方可結束。</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 第一排區塊2 -->
+							<div class="presentin col s12 m6 l6">
+								<div class="ititle center-align">
+									<h4>最新活動</h4>
+								</div>
+								<div class="ititlep">
+									<p class="left-align">在APP上可以看到衛生所最新的活動，在APP下方活動報名的"登入"按鈕，進入活動報名的畫面輸入完基本資料後按"確定"報名就完成了。</p>
+								</div>
+								<div class="row">
+									<div class="presentbox">
+										<div class="presentimg">
+											<img class="materialboxed col s6 m6" width="150" src="img/text.png">
+											<img class="materialboxed col s6 m6" width="150" src="img/text1.jpg">
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 第一排結束 -->
+							<!-- 第2排區塊1 -->
+							<div class="presentin col s12 m6 l6">
+								<div class="ititle center-align">
+									<h4>官方資源</h4>
+								</div>
+								<div class="ititlep">
+									<p class="left-align">APP提供了最新消息,門診資訊,服務項目,資源連接相關了官方連結，方便直接在APP上面直接查看官方資訊隨時掌握最新的消息。</p>
+								</div>
+								<div class="row">
+									<div class="presentbox">
+										<div class="presentimg">	
+											<img class="materialboxed col s6 m6" width="150" src="img/box201 (1).png">
+											<img class="materialboxed col s6 m6" width="150" src="img/box201 (2).png">
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 第2排區塊2 -->
+							<div class="presentin col s12 m6 l6">
+								<div class="ititle center-align">
+									<h4>問卷調查</h4>
+								</div>
+								<div class="ititlep">
+									<p class="left-align">如果您喜歡我們的APP希望您可以幫我們做個問卷調查，有任何問題或BUG也可以在上面回復。<a class="btn z-depth-0 bluebtn" href="http://goo.gl/forms/g97tv5PMmH">前往問卷</a></p>
+								</div>
+								<div class="row">
+									<div class="presentbox">
+										<div class="presentimg">
+											<a href=""></a>
+											<img class="materialboxed col s12 m12" width="150" src="img/qtext.jpg">
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 第2排結束 -->
+						</div>
+					</div>
+
+					<!-- <div class="present">
+						<div class="row">
+						 第二排區塊1 
+							<div class="presentin col s12 m6 l6">3</div>
+						 第二排區塊2
+							<div class="presentin col s12 m6 l6">4</div>
+						</div>
+					</div> -->
+
 				</div>
 			</div>
-			
-		<?php include 'modals.php'; ?>
+		</div>
+		
 	</main>
+	<footer class="page-footer">
+		<div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text">衛生所APP應用程式</h5>
+                <p class="grey-text text-lighten-4">謝謝您使用我們的APP和網站</p>
+              </div>
+              <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">相關連接</h5>
+                <ul>
+                  <li><a class="grey-text text-lighten-3" href="http://linkou.health.ntpc.gov.tw/">林口衛生所</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Facebook</a></li>
+ <!--                  <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li> -->
+                </ul>
+              </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+            © 2016 Copyright Text
+            <!-- <a class="grey-text text-lighten-4 right" href="#!">More Links</a> -->
+            </div>
+       </div>
+    </footer>
+    <?php include 'modals.php';?>
 </body>
 </html>

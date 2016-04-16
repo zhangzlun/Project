@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>JSON</title>
+	<script src="http://code.jquery.com/jquery-2.1.1.js"></script>
+	<!-- materialize -->
+	<script type="text/javascript" src="js/materialize.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/materialize.css"> 
+	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<script>
+	var getData = new Object();
+
+	var Bruce = function() {
+
+		this.type = 'POST';
+		this.dataType = 'json';
+		this.isAsync = false;
+		this.postData = {};
+
+		this.getJSON = function(url) {
+			var result;
+			$.ajax({
+				type: this.type,
+				url: url,
+				data: this.postData,
+				dataType: this.dataType,
+				async: this.isAsync,
+				success: function(response) {
+					result = response;
+				},
+				error: function(XMLHttpRequest) {
+					//alert(XMLHttpRequest.status);
+					result = {Status: -1, Result: XMLHttpRequest.status};
+				}
+			});
+			return result;
+		}
+
+		this.setType = function(type) {
+			this.type = type; 
+		}
+
+		this.setData = function(sendData) {
+			this.postData = sendData;
+		}
+
+		this.showJSON = function(url, target) {
+			var a = JSON.stringify(this.getJSON(url));
+			$(target).html(a);
+		} 
+	}
+
+	//接收
+	var show = function(){
+		$('label').removeClass('text');
+		var bruce = new Bruce();
+		var response = bruce.getJSON('http://www.daren.idv.tw/lin/purchase_show');
+		getData = response.purchase_data;
+
+		var dataArray = new Array();
+		$.each(response.purchase_data, function(key, value) {
+			dataArray.push('<tr class="thover" id="'+value.purchase_no+'">');
+				dataArray.push('<td>'+value.purchase_no+'</td>');
+				dataArray.push('<td>'+value.product_name+'</td>'); 
+				dataArray.push('<td>'+'<button  onclick="delb()">刪除</button>'+'</td>'); 
+			dataArray.push('</tr>');
+
+			
+		});
+		$('tbody#lists').html(dataArray.join(""));
+		trclick();
+		
+	}
+
+	//送出
+	var out = function (){
+
+		var s1 = $('input[name=purchase_no]').val();
+		var s3 = $('input[name=product_name]').val();
+		var post_data = {purchase_no:s1, product_name:s3 };
+		// alert(JSON.stringify(post_data));
+
+		var bruce = new Bruce();
+		bruce.setData(post_data);
+		var response = bruce.getJSON('http://www.daren.idv.tw/lin/purchase_ist');
+		
+		if(response.status==-1) {
+			alert(response.dbError);
+			return;
+		}
+		show();
+	}
+
+	var del = function(){
+
+		$('.thover').addClass('onp').siblings('.onp').removeClass('onp');
+		var s1 = $('input[name=purchase_no]').val();
+		var post_data = {purchase_no:s1};
+
+		var bruce = new Bruce();
+		bruce.setData(post_data);
+		var response = bruce.getJSON('http://www.daren.idv.tw/lin/purchase_del');
+		show();
+	}
+
+
+	var getOne = function(purchase_no) {
+		$.each(getData, function(key, value) {
+			if(purchase_no===value.purchase_no) {
+				$('input[name=purchase_no]').val(value.purchase_no);
+				$('input[name=product_name]').val(value.product_name);
+			}
+		});
+	}
+
+	var trclick = function(){
+		$('#lists tr').click(function(){
+			$(this).addClass('on').siblings('.on').removeClass('on');
+			getOne($(this).attr('id'));
+			$('label').addClass('text');
+		});
+	}
+
+	var delb = function(){
+		$('input').change('display_h');
+	}
+
+
+	$(document).ready(function () {
+		show();
+	});
+
+
+
+</script>
+<style>
+	.thover:hover{ background-color:#d0d0d0; }
+	.on{ background-color:#d0d0d0; }
+	.onp{ background-color:red; }
+	.error{background-color: red;}
+	.inputli .libox{ float: left; }
+	.inputli{height: 150px;}
+	input{margin: 0px 10px; width:8em}
+	li{ list-style-type: none; position: relative; left: -10px;margin: 10px; }
+	.input-field label {
+	  color: #9e9e9e;
+	  position: absolute;
+	  top: 0.7rem;
+	  left: 0.75rem;
+	  font-size: 1.5rem;
+	  cursor: text;
+	  transition: .3s ease-out;
+	}
+	.input-field label.active {
+	  font-size: 1.2rem;
+	  -webkit-transform: translateY(-140%);
+	          transform: translateY(-140%);
+	}
+	.text{
+		-webkit-transform: translateY(-100%);
+		transform: translateY(-100%);
+	}
+</style>
+<body>
+
+	
+<main >
+	<div class="inputdata">
+		<h5>新增</h5>
+		<div class="inputli">
+			<div class="libox">
+				<li>進貨編號<input type="text" name="purchase_no" value="PC201600002"></input></li>
+				<li>廠商編號<input type="text" name="vendor_no" value="iphone"></input></li>
+				<li>產品名稱<input type="text" name="product_name" value="iphone"></input></li>
+				<li>產品代號<input type="text" name="product_code" value="iphone"></li>
+			</div>
+			</div>
+		</div>
+		<button onclick="out()">送出</button>
+		<button onclick="del()">刪除</button>
+	</div>
+
+
+	<div class="row">
+	    <form class="col s12">
+	      <div class="row">
+	        <div class="input-field col s3">
+	          <input type="text" name="purchase_no" id="purchase_no" value="PC201600002" class="validate">
+	          <label for="purchase_no">進貨編號</label>
+	        </div>
+	        <div class="input-field col s3">
+				<label >Last Namee</label>
+				<input id="last_name" type="text" class="validate">  
+	        </div>
+	        <div class="input-field col s3">
+	          <input type="text" name="product_name"  class="validate">
+	          <label for="disabled">Disabled</label>
+	        </div>
+	        <div class="input-field col s3">
+	          <input id="password" type="password" class="validate">
+	          <label for="password">Password</label>
+	        </div>
+			<div class="input-field col s6">
+	            <input type="text" name="product_name"  length="10">
+				 <label for="password">Password</label>
+          	</div>
+	      </div>
+	      <a onclick="out()" class="btn">送出</a>
+	      <a onclick="del()" class="btn">刪除</a>
+	    </form>
+	  </div>
+
+
+
+
+
+	<table border="3" style="border-collapse:collapse;" >
+		<thead >
+			<tr><th>進貨編號</th><th>產品名稱</th></tr>
+		</thead>
+		<tbody id="lists">
+		</tbody>
+	</table>
+</main>
+ 	
+</body>
+</html>
+  

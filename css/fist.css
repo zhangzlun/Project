@@ -1,0 +1,164 @@
+ 	@charset "utf-8";
+	video { 
+	    position: absolute;
+	    top: 50%;
+	    left: 50%;
+	    transform: translateX(-50%) translateY(-50%);
+	    min-width: 100%;
+	    min-height: 100%;
+	    width: auto;
+	    height: auto;
+	    z-index: -100;
+	  	background-size: cover;
+	}
+	.imgplay{
+	 	position:relative;
+	 	top:-20px;
+	 	width: 100%;
+	 	height: 600px;
+	 	overflow: hidden;
+	}
+	#Headerss{
+		position: relative;
+		text-align: center;
+		top: 25%;
+		font-weight: 900;
+		color:#fff;
+	}
+	.log .login{
+		display:block; 
+	}
+	.login{
+		position: fixed;
+		margin: 25% 50%;
+		transform:translateX(-50%) translateY(-50%);
+		width: 300px;
+		height:300px;
+		background-color: red;
+		z-index: 1;
+		display: block;
+	}
+	.diplay_n{
+			display: none;
+		}
+	#searchi{
+		position: absolute;
+		margin: auto 50%;
+		transform:translateX(-50%);
+		bottom: 0;
+		background: blue;
+		height: 75px;
+		width: 100%;
+		z-index: 99;
+		background: rgba(0%,10%,20%,0.6);
+	}
+	.search{
+		position: relative;
+		transform:translateY(-50%);
+		top:50%;
+		width: 45%;
+		z-index: 999;
+		margin: 0px auto;
+	}
+	#searchi nav{
+		background: rgba(0%,0%,0%,0);
+	}
+	.mynav{
+		position: absolute;
+		z-index: 999;
+		background: rgba(0%,0%,0%,0) !important;
+	}
+	.navap a{
+		font-size:20px;
+		font-weight: 900;
+		font-family:Microsoft JhengHei;
+	}
+	.MTitle{
+		text-align: center;
+	}
+	.photo {
+		position: relative !important;
+		top:20px;
+		text-align: center;
+	}
+	.photopin{
+		position: relative;
+		margin:0 auto;
+	}
+	.photopin a h4{
+		position: absolute;
+		top:40%;
+		left: 50%;
+		transform: translateX(-50%) translateY(-50%);
+		z-index: 999;
+		font-size:40px;
+		font-weight: 900;
+		font-family:fantasy;
+		color: #fff;
+	}
+	.photopin img{
+		box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.50), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+		width: 300px;
+		height: 200px;
+	}	
+	
+	#footer1{
+		position: relative;
+		top:25px;
+	}
+	#filter{
+		position: relative; 
+		height: 30px;
+		width: 100%;
+		background-color: rgba(0%,10%,20%,0.6);
+		top:35px;
+		border-bottom: 5px solid #CCC;
+	}
+	#filter .box:hover .boxin{
+		display: block;
+	}
+	#filter a{
+		font-size: 20px;
+		font-style: 900px;
+	}
+	.box{
+		width: 150px;
+		float: left;
+		text-align: center;
+		background-color: ;
+	}
+	.boxin{
+		position: absolute;
+		height: 150px;
+		width: 550px;
+		z-index: 999;
+		background-color: #FFF;
+		display: none;
+		border: 2px solid black;
+		border-top: 0px;
+
+
+	}
+	.boxin a{
+		font-size: 15px !important;
+		text-decoration: none;
+		width: 100%;
+		white-space:nowrap;
+	}
+		.boxin a:hover{
+			background-color:rgb(0, 133, 0);
+		}
+	
+	#filter .box .boxin li{
+		text-align: center;
+		width: 20%;
+		float: left;
+		margin: 10px 10px;
+	} 
+	#search2{
+		position: relative;
+		top:35px;
+		height: 75px;
+		background-color: red;
+		z-index: -99;
+	}

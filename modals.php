@@ -1,73 +1,166 @@
-<div id="modal1" class="modal modal-fixed-footer boxin">
+<div id="modal1" class="modal">
     <div class="modal-content">
-      <h4>最新消息</h4>
-      <p>提供林口區衛生所的活動頁面及最新資訊可供檢視。</p>
+      <h4>Modal Header</h4>
+      <p>A bunch of text</p>
     </div>
+    <div class="modal-footer">
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">1Agree</a>
+    </div>
+  </div>
+<!-- 手機版活動報名 -->
+<div id="phone" class="modal boxin">
+    <div class="modal-content">
+      <div class="row">
+        <div class="col s5">
+          <p>活動報名</p>
+          <p>最新的活動可以在這邊報名</p>
+        </div>
+        <!-- 選擇活動 -->
+         <div class="input-field col s7">
+            <select  >
+              <option value="" disabled selected>選擇活動</option>
+              <option value="1">免費施打疫苗</option>
+            </select>
+
+            <label>最新活動</label>
+          </div>
+      </div>
+      <div class="row">
+        <form class="col s12">
+          <div class="row">
+             <div class="input-field col s6">
+               <input  value="Alvin" id="first_name2" type="text" class="validate">
+               <label class="active" for="first_name2">名子</label>
+             </div>
+
+             <div class="input-field col s6">
+                 <select>
+                    <option value="" disabled selected>選擇</option>
+                    <option value="1">男</option>
+                    <option value="2">女</option>
+                 </select>
+                 <label>性別</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+                <input id="input_text" type="text" length="10">
+                <label for="input_text" >電話</label>
+            </div>
+          </div>
+          <div class="row">
+          <!-- ID text -->
+            <div class="input-field col s12">
+                <input id="input_text" type="text" length="10">
+                <label for="input_text">身分證字號</label>
+            </div>
+          </div>
+          <div class="row">
+            <!-- e-mail text -->
+             <div class="input-field col s12">
+                <input id="email" type="email" class="validate">
+                <label for="email" data-error="錯誤" data-success="正確">信箱</label>
+              </div>
+          </div>
+          <div class="row">
+            <div class=" col s6">
+              <input placeholder="輸入日期" type="date" value="" >
+            </div>
+            <div class="col s6">
+              <a href="" class="btn">送出</a>
+            </div>
+            <!-- 送出  -->
+          </div>
+          </form>
+        </div>
+      </div>
+    <div class="modal-footer">
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">返回</a>
+    </div>
+</div>
+
+<!-- 活動報名 -->
+
+<div id="modal7" class="modal modal-fixed-footer bigboxin ">
+    <div class="modal-content ">
+      <div class="row">
+        <div class="col s6">
+          <h4>活動報名</h4>
+          <p>最新的活動可以在這邊報名</p>
+        </div>
+        <!-- 選擇活動 -->
+         <div class="input-field col s5">
+            <select id="activityArray"  >
+              <option value="" disabled selected>選擇活動</option>
+              <option value="1">免費施打疫苗</option>
+            </select>
+
+            <label>最新活動</label>
+          </div>
+      </div>
+      
+      <div class="row">
+         <form class="col s12">
+         <!-- name text -->
+         <div class="row">
+             <div class="input-field col s3">
+               <input  value="Alvin" id="first_name2" type="text" class="validate">
+               <label class="active" for="first_name2">名子</label>
+             </div>
+          
+           <!-- Q1 text -->
+           
+            <div class="input-field col s3">
+                 <select>
+                    <option value="" disabled selected>選擇</option>
+                   <option value="1">男</option>
+                   <option value="2">女</option>
+                 </select>
+                 <label>性別</label>
+            </div>
+         
+           <!-- phone text -->
+    
+              <div class="input-field col s6">
+                  <input id="input_text" type="text" length="10">
+                  <label for="input_text" >電話</label>
+              </div>
+          
+          <!-- ID text -->
+          
+              <div class="input-field col s6">
+                  <input id="input_text" type="text" length="10">
+                  <label for="input_text">身分證字號</label>
+              </div>
+     
+          <!-- e-mail text -->
+         
+             <div class="input-field col s6">
+               <input id="email" type="email" class="validate">
+               <label for="email" data-error="錯誤" data-success="正確">信箱</label>
+              </div>
+          </div>
+          <div class="row">
+             <div class=" col s6">
+               <input placeholder="輸入日期" type="date" class="datepicker">
+             </div>
+             <div class="col s6">
+               <a href="" class="btn">送出</a>
+               </div>
+           </div>
+
+         </form>
+       </div>
+    </div>
+
     <div class="modal-footer">
       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">返回</a>
     </div>
 </div>
 
-<div id="modal2" class="modal modal-fixed-footer boxin">
-    <div class="modal-content">
-      <h4>門診資訊</h4>
-      <p>主要供應民眾可以查詢衛生所的營運時間。</p>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">返回</a>
-    </div>
-</div>
 
-<div id="modal3" class="modal modal-fixed-foote boxin">
-    <div class="modal-content">
-      <h4>服務項目</h4>
-      <p>現行有免費心理諮詢的頁面可供檢視。</p>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">返回</a>
-    </div>
-</div>
 
-<div id="modal4" class="modal modal-fixed-footer boxin">
-    <div class="modal-content">
-      <h4>資源連接</h4>
-      <p>可以連接進入後查詢附近的行政、醫療、教育及休閒的資源單位。</p>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">返回</a>
-    </div>
-</div>
-
-<div id="modal5" class="modal modal-fixed-footer boxin">
-    <div class="modal-content">
-      <h4>衛生所目前活動</h4>
-      <p>可以檢視目前衛生所有哪些活動正在實施。</p>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">返回</a>
-    </div>
-</div>
-
-<div id="modal6" class="modal modal-fixed-footer boxin">
-    <div class="modal-content">
-      <h4>活動報名</h4>
-      <p>登入鈕按下之後可以直接前往現行活動的報名專區。</p>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">返回</a>
-    </div>
-</div>
-
-<div id="modal7" class="modal modal-fixed-footer boxin">
-    <div class="modal-content">
-      <h4>問卷</h4>
-      <p>Google問卷主要提供使用者對此APP的觀後心得以及改善意見。</p>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">返回</a>
-    </div>
-</div>
-
+<!-- download modals -->
 <div id="download" class="modal modal-fixed-footer boxin">
     <div class="modal-content">
       <h4>APP下載</h4>

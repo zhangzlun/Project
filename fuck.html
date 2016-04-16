@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>JSON HOME</title>
+	<script src="http://code.jquery.com/jquery-2.1.1.js"></script>
+	<!-- 假資料 JS -->
+	<script src="Simple.js"></script>
+	<!-- materialize -->
+	<script type="text/javascript" src="js/materialize.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/materialize.css"> 
+	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<script>
+//假資料數值
+	var gatData = new Object();
+	var status =new Object();
+
+	var Send = function() {
+		var s1 = $('input[name=doc_no]').val();
+		var s2 = $('input[name=doc_name]').val();
+		var s3 = $('input[name=department]').val();
+		var s4 = $('input[name=empno]').val();
+		var post_data = {doc_no:s1, doc_name:s2, department:s3, empno:s4, func:1 };
+		alert(JSON.stringify(post_data));
+
+	}
+	
+
+
+	// 資料放進表格裡
+    var getOne = function(doc_no) {
+
+    	$.each(gatData, function(key, value) {
+    		if(doc_no===value.doc_no) {
+    			$('input[name=doc_no]').val(value.doc_no);
+    			$('input[name=doc_name]').val(value.doc_name);
+    			$('input[name=department]').val(value.department);
+    			$('input[name=empno]').val(value.empno);
+    		}
+    	});
+
+    }
+
+
+    var showData = function() {
+    	
+
+     	var showda = new Array();
+     	$.each(dataObj['anno'].list, function(key, value) {
+     		showda.push('<tr id="'+value.doc_no+'">');
+    		 		showda.push('<td>'+value.doc_no+'</td>');
+    		 		showda.push('<td>'+value.doc_name+'</td>');  
+    		 		showda.push('<td>'+value.department  +'</td>');
+    		 		showda.push('<td>'+value.empno+'</td>');
+     		showda.push('</tr>');
+     	});
+     	gatData = dataObj['anno'].list;
+
+     	$('tbody#list').html(showda.join(""));
+    }
+
+
+	var userstatus = function(key, value){
+		status = dataObj['status'].list;
+		var a = value.status
+ 
+		if(a == 0) {
+			$('main').addClass('display_h');
+		} else {
+			$('main').removeClass('display_h');
+		}
+		
+	}
+
+	$(document).ready(function () {
+		// userstatus();
+		showData();
+		$('#list tr').addClass('thover');
+		$('#list tr').click(function(){
+			$(this).addClass('on').siblings('.on').removeClass('on');
+				getOne($(this).attr('id'));
+
+		});
+	});
+
+
+
+</script>
+<style type="text/css">
+	.login{
+		/*position: fixed;*/
+		left:600px;
+	}
+	.inputdata{
+		position: fixed;
+		left:600px;
+	}
+	.thover:hover{
+		background-color:#d0d0d0;
+	}
+	.on{
+		background-color:#d0d0d0;
+	}
+	.display_h{
+		display:none;
+	}
+</style>
+<body>
+<div class="row">
+	<div class="login" class="col m5 ">
+		<h5>登入畫面</h5>
+		<input type="text" name="userlogin" value="k0926521654@gmail.com" ></input><br>
+		<input type="text" name="passwd"  ></input><br>
+		<button onclick="userstatus()">登入</button>
+		<button onclick="showData()">顯示</button>
+	</div>
+</div>
+
+
+
+
+<main>
+	<div class="inputdata">
+		<input type="text" name="doc_no" placeholder="輸入編號" value="R77" ></input><br>
+		<input type="text" name="doc_name" placeholder="輸入文件名稱" value="廠商合約"></input><br>
+		<input type="text" name="department" placeholder="輸入部門" value="會計部"></input><br>
+		<input type="text" name="empno" placeholder="輸入保管人" value="張志綸"></input><br>
+		<button onclick="Send()">送出</button>
+		<button onclick="Update()">更新</button>
+		<button onclick="delete()">刪除</button>
+	</div>
+
+
+
+
+
+	<div class="row">
+		<div id="bpeople_test" class="col m5">
+			<table border="1" style="border-collapse:collapse;" class="bordered" >
+				<thead >
+					<tr class="thead" ><th>編號</th><th>文件名稱</th><th>部門</th><th>保管人</th><th>時間</th></tr>
+				</thead>
+				<tbody id="list">
+					<tr ></tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+	
+ </main>
+ 
+</body>
+</html>
+  
