@@ -63,7 +63,22 @@
 		$.each(response.purchase_data, function(key, value) {
 			dataArray.push('<tr class="thover" id="'+value.purchase_no+'">');
 				dataArray.push('<td>'+value.purchase_no+'</td>');
-				dataArray.push('<td>'+value.product_name+'</td>'); 
+				dataArray.push('<td>'+value.vendor_no+'</td>'); 
+				dataArray.push('<td>'+value.product_name+'</td>');
+				dataArray.push('<td>'+value.product_code+'</td>');
+				dataArray.push('<td>'+value.quantity+'</td>');
+				dataArray.push('<td>'+value.unit +'</td>');
+				dataArray.push('<td>'+value.price+'</td>');
+				dataArray.push('<td>'+value.tax+'</td>');
+				dataArray.push('<td>'+value.fee_date+'</td>');
+				dataArray.push('<td>'+value.vendor_sales+'</td>');
+				dataArray.push('<td>'+value.voucher_no+'</td>');
+				dataArray.push('<td>'+value.debit_code+'</td>');
+				dataArray.push('<td>'+value.credit_code+'</td>');
+				dataArray.push('<td>'+value.project_no+'</td>');
+				dataArray.push('<td>'+value.emp_no+'</td>');
+				dataArray.push('<td>'+value.enter_date+'</td>');
+				dataArray.push('<td>'+value.summary+'</td>');
 				dataArray.push('<td>'+'<button  onclick="delb()">刪除</button>'+'</td>'); 
 			dataArray.push('</tr>');
 
@@ -105,11 +120,37 @@
 		show();
 	}
 
+	var upd = function(){
+		var s1 = $('input[name=purchase_no]').val();
+		var s3 = $('input[name=product_name]').val();
+		var post_data = {purchase_no:s1, product_name:s3 };
+		// alert(JSON.stringify(post_data));
+
+		var bruce = new Bruce();
+		bruce.setData(post_data);
+		var response = bruce.getJSON('http://www.daren.idv.tw/lin/purchase_upd');
+		show();
+	}
 
 	var getOne = function(purchase_no) {
 		$.each(getData, function(key, value) {
 			if(purchase_no===value.purchase_no) {
 				$('input[name=purchase_no]').val(value.purchase_no);
+				$('input[name=product_name]').val(value.product_name);
+				$('input[name=product_name]').val(value.product_name);
+				$('input[name=product_name]').val(value.product_name);
+				$('input[name=product_name]').val(value.product_name);
+				$('input[name=product_name]').val(value.product_name);
+				$('input[name=product_name]').val(value.product_name);
+				$('input[name=product_name]').val(value.product_name);
+				$('input[name=product_name]').val(value.product_name);
+				$('input[name=product_name]').val(value.product_name);
+				$('input[name=product_name]').val(value.product_name);
+				$('input[name=product_name]').val(value.product_name);
+				$('input[name=product_name]').val(value.product_name);
+				$('input[name=product_name]').val(value.product_name);
+				$('input[name=product_name]').val(value.product_name);
+				$('input[name=product_name]').val(value.product_name);
 				$('input[name=product_name]').val(value.product_name);
 			}
 		});
@@ -169,17 +210,7 @@
 <main >
 	<div class="inputdata">
 		<h5>新增</h5>
-		<div class="inputli">
-			<div class="libox">
-				<li>進貨編號<input type="text" name="purchase_no" value="PC201600002"></input></li>
-				<li>廠商編號<input type="text" name="vendor_no" value="iphone"></input></li>
-				<li>產品名稱<input type="text" name="product_name" value="iphone"></input></li>
-				<li>產品代號<input type="text" name="product_code" value="iphone"></li>
-			</div>
-			</div>
-		</div>
-		<button onclick="out()">送出</button>
-		<button onclick="del()">刪除</button>
+		
 	</div>
 
 
@@ -187,28 +218,85 @@
 	    <form class="col s12">
 	      <div class="row">
 	        <div class="input-field col s3">
-	          <input type="text" name="purchase_no" id="purchase_no" value="PC201600002" class="validate">
+	          <input type="text" name="purchase_no" class="validate">
 	          <label for="purchase_no">進貨編號</label>
 	        </div>
-	        <div class="input-field col s3">
-				<label >Last Namee</label>
-				<input id="last_name" type="text" class="validate">  
+	         <div class="input-field col s3">
+	          <input type="text" name="vendor_no" class="validate">
+	          <label >廠商編號</label>
 	        </div>
 	        <div class="input-field col s3">
 	          <input type="text" name="product_name"  class="validate">
-	          <label for="disabled">Disabled</label>
+	          <label>產品名稱</label>
+	        </div>
+	       <div class="input-field col s3">
+	          <input type="text" name="product_code" class="validate">
+	          <label>產品代號</label>
+	        </div>
+			
+			<div class="input-field col s3">
+	          <input type="text" name="quantity" class="validate">
+	          <label>數量</label>
+	        </div>
+	         <div class="input-field col s3">
+	          <input type="text" name="unit" class="validate">
+	          <label>單位</label>
 	        </div>
 	        <div class="input-field col s3">
-	          <input id="password" type="password" class="validate">
-	          <label for="password">Password</label>
+	          <input type="text" name="price"  class="validate">
+	          <label>單價</label>
 	        </div>
-			<div class="input-field col s6">
-	            <input type="text" name="product_name"  length="10">
-				 <label for="password">Password</label>
-          	</div>
+			<div class="input-field col s3">
+	          <input type="text" name="tax" class="validate">
+	          <label>稅金金額</label>
+			</div>
+
+
+			<div class="input-field col s3">
+	          <input type="text" name="fee_date" class="validate">
+	          <label>購買日期</label>
+	        </div>
+	         <div class="input-field col s3">
+	          <input type="text" name="vendor_sales" class="validate">
+	          <label>廠商業務</label>
+	        </div>
+	        <div class="input-field col s3">
+	          <input type="text" name="voucher_no"  class="validate">
+	          <label>傳票代號</label>
+	        </div>
+			<div class="input-field col s3">
+	          <input type="text" name="debit_code" class="validate">
+	          <label>借方科目</label>
+			</div>
+
+			<div class="input-field col s3">
+	          <input type="text" name="credit_code" class="validate">
+	          <label>貸方科目</label>
+	        </div>
+	         <div class="input-field col s3">
+	          <input type="text" name="project_no" class="validate">
+	          <label>專案代號</label>
+	        </div>
+	        <div class="input-field col s3">
+	          <input type="text" name="emp_no"  class="validate">
+	          <label>需求人員</label>
+	        </div>
+			<div class="input-field col s3">
+	          <input type="text" name="enter_date" class="validate">
+	          <label>輸入日期</label>
+			</div>
+
+			<div class="input-field col s3">
+	          <input type="text" name="summary" class="validate">
+	          <label>摘要</label>
+			</div>
+
 	      </div>
+
+
 	      <a onclick="out()" class="btn">送出</a>
 	      <a onclick="del()" class="btn">刪除</a>
+	      <a onclick="upd()" class="btn">修改</a>
 	    </form>
 	  </div>
 
