@@ -10,12 +10,11 @@
 	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<!-- animate動畫 -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/animatecss/3.5.1/animate.min.css">
-	<link rel="stylesheet" type="text/css" href="css/bootstrap-sweetalert-master/assets/docs.css">
+	<!-- <link rel="stylesheet" type="text/css" href="css/bootstrap-sweetalert-master/assets/docs.css"> -->
 
 </head>
 <script>
 	var getData = new Object();
-
 	var Bruce = function() {
 
 		this.type = 'POST';
@@ -58,6 +57,8 @@
 
 	//接收
 	var show = function(){
+		var all_Inputs = $("input[type=text]");
+		all_Inputs.val("");
 		$('label').removeClass('text');
 		var bruce = new Bruce();
 		var response = bruce.getJSON('http://www.daren.idv.tw/lin/purchase_show');
@@ -131,22 +132,16 @@
 	}
 
 	var del = function(){
-		
-		// $('.thover').addClass('onp').siblings('.onp').removeClass('onp');
 		var s1 = $('input[name=purchase_no]').val();
 		var post_data = {purchase_no:s1};
 
 		var bruce = new Bruce();
 		bruce.setData(post_data);
 		var response = bruce.getJSON('http://www.daren.idv.tw/lin/purchase_del');
-
-		// 清空 all_Inputs
 		show();
-		
 	}
 
 	var upd = function(){
-	
 
 		var bruce = new Bruce();
 		bruce.setData(post_input);
@@ -174,7 +169,6 @@
 				$('input[name=emp_no]').val(value.emp_no);
 				$('input[name=enter_date]').val(value.enter_date);
 				$('input[name=summary]').val(value.summary);
-
 			}
 		});
 	}
@@ -187,30 +181,32 @@
 		});
 	}
 
-	// var search = function(){
-
-	// }
+	var mininput = function(){
+		if ($("#inputdata").hasClass("inputdata")) {$("#inputdata").removeClass("inputdata").addClass("mininputdata");
+		}else{ $("#inputdata").removeClass("mininputdata").addClass("inputdata"); }
+		inputin();
+	}
 
 	// 動畫效果
 	var inputout = function(){
-		 $('.inputdata').removeClass('bounceInLeft').addClass('animated bounceOutLeft');
-		 setTimeout("$('.inputdata').addClass('display-n');",700);
+		 $('#inputdata').removeClass('bounceInLeft').addClass('animated bounceOutLeft');
+		 setTimeout("$('#inputdata').addClass('display-n');",700);
 	}
+
 	var inputin = function(){
-		$('.inputdata').removeClass('bounceOutLeft');
-		setTimeout("$('.inputdata').removeClass('display-n');",300);
-		$('.inputdata').addClass('animated bounceInLeft');
+		$('#inputdata').removeClass('bounceOutLeft');
+		setTimeout("$('#inputdata').removeClass('display-n');",300);
+		$('#inputdata').addClass('animated bounceInLeft');
 	}
+
+	var inputinoutif = function(){
+		if ($("#inputdata").hasClass("bounceInLeft")) {inputout();}else{ inputin();}
+	}
+
 	$(document).ready(function () {
 		show();
 		inputin();
-		$("#search").keyup(function(){
-		   $("#search").css("background-color","#D6D6FF");
-		});
-		
 	});
-
-
 
 </script>
 <style>
@@ -219,34 +215,28 @@
 	}
 	.thover:hover{ background-color:#d0d0d0; }
 	.on{ background-color:#d0d0d0; }
-	.onp{ background-color:red; }
 	.error{background-color: red;}
 	.inputli .libox{ float: left; }
 	.inputli{height: 150px;}
 	input{margin: 0px 10px; width:8em}
-	li{ list-style-type: none; position: relative; left: -10px;margin: 10px; }
-	/*.input-field label {
-	  color: #9e9e9e;
-	  position: absolute;
-	  top: 0.7rem;
-	  left: 0.75rem;
-	  font-size: 1.5rem;
-	  cursor: text;
-	  transition: .3s ease-out;
-	}
-	.input-field label.active {
-	  font-size: 1.2rem;
-	  -webkit-transform: translateY(-140%);
-	          transform: translateY(-140%);
-	}*/
-	.text{
-		-webkit-transform: translateY(-100%);
-		transform: translateY(-100%);
-	}
+	li{list-style-type: none; position: relative; left: -10px;margin: 10px;}
+	.text{-webkit-transform: translateY(-100%);transform: translateY(-100%);}
 
 	.inputdata{
-		width: 80%;
+		position: relative;
+		top:10px;
+		width: 90%;
 		margin-left: 2%;
+	}
+	.mininputdata{
+		position: fixed;
+		z-index: 999;
+		bottom: 3%;
+		width: 92%;
+		height: 100px;
+		margin-left: 2%;
+		overflow: auto;
+		background-color: #FFF;
 	}
 	.inputdata a{
 		margin: 10px;
@@ -258,23 +248,21 @@
 <main >
 
 	<div class="fixed-action-btn horizontal" style="bottom: 45px; right: 24px;">
-	    <a class="btn-floating btn-large red " onclick="inputin()">
+	    <a class="btn-floating btn-large red " onclick="mininput()">
 	      <i class="large material-icons">mode_edit</i>
 	    </a>
 	    <ul>
-	        <li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>
-	        <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
+	        <li><a class="btn-floating red" onclick="del()"><i class="material-icons">delete</i></a></li>
+	        <li><a class="btn-floating yellow" onclick="inputinoutif()"><i class="material-icons">view_list</i></a></li>
 	        <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
 	        <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
 	    </ul>
 	</div>
 
 
-	<div class="inputdata z-depth-2">
-		<h5>新增</h5>
+	<div id="inputdata" class="inputdata z-depth-2">
 		<div class="row">
 		    <form class="col s12">
-
 
 			<div class="row">
 				<div class="input-field col s3" id="search" >
@@ -336,12 +324,14 @@
 				<div class="input-field col s3">
 		          <input type="text" name="summary" class="validate"><label>摘要</label>
 				</div>
-
+				
+				<div class="bttn">
+					<a onclick="out()" class="btn"><i class="material-icons right">send</i>送出</a>
+					<a onclick="del()" class="btn"><i class="material-icons right">delete</i>刪除</a>
+					<a onclick="upd()" class="btn"><i class="material-icons right">mode_edit</i>修改</a>
+					<a onclick="inputout()" class="btn">初始化</a>
+			    </div>
 			</div>
-		      <a onclick="out()" class="btn">送出</a>
-		      <a onclick="del()" class="btn">刪除</a>
-		      <a onclick="upd()" class="btn">修改</a>
-		      <a onclick="inputout()" class="btn">初始化</a>
 		    </form>
 	    </div>
 	</div>
@@ -350,7 +340,7 @@
 
 
 	<div class="tables ">
-		<table border="3" style="border-collapse:collapse;" class="responsive-table centered" >
+		<table border="3" style="border-collapse:collapse;" class="responsive-table centered bordered" >
 			<thead >
 				<tr><th>進貨編號</th><th>廠商編號</th><th>產品名稱</th><th>產品代號</th><th>數量</th><th>單位</th><th>單價</th><th>稅金金額</th><th>購買日期</th><th>廠商業務</th><th>傳票代號</th><th>借方科目</th><th>貸方科目</th><th>專案代號</th><th>需求人員</th><th>輸入日期</th><th>摘要</th></tr>
 			</thead>
