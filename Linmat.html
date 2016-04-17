@@ -12,7 +12,12 @@
 	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<!-- animate動畫 -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/animatecss/3.5.1/animate.min.css">
-	<!-- <link rel="stylesheet" type="text/css" href="css/bootstrap-sweetalert-master/assets/docs.css"> -->
+
+	 <script src="lib/sweet-alert.js"></script>
+    <link rel="stylesheet" href="lib/sweet-alert.css">
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-sweetalert-master/assets/docs.css">
 
 </head>
 <script>
@@ -93,17 +98,8 @@
 			
 		});
 		$('tbody#lists').html(dataArray.join(""));
-		function trclick(){
-			alert('123');
-			$('#lists tr').click(function(){
-				$(this).addClass('on').siblings('.on').removeClass('on');
-				getOne($(this).attr('id'));
-				$('label').addClass('text');
-				
-			});
-		}
-		return trclick();
 		
+		trclick();
 	}
 
 	//送出
@@ -142,6 +138,7 @@
 	}
 
 	var del = function(){
+
 		var s1 = $('input[name=purchase_no]').val();
 		var post_data = {purchase_no:s1};
 
@@ -183,8 +180,16 @@
 		});
 	}
 
-
-
+		var trclick = function (){
+			$('#lists tr').click(function(){
+				$(this).addClass('on').siblings('.on').removeClass('on');
+				getOne($(this).attr('id'));
+				alert($(this).attr('id'));
+				$('label').addClass('text');
+				
+			});
+		}
+	// 動畫效果
 	var mininput = function(){
 		if ($("#inputdata").hasClass("inputdata")) {
 			inputinoutif ();
@@ -198,7 +203,6 @@
 		
 	}
 
-	// 動畫效果
 	var inputinoutif = function(){
 		if ($("#inputdata").hasClass("bounceInLeft")) {inputout();}else{ inputin();}
 	}
@@ -213,7 +217,6 @@
 		setTimeout("$('#inputdata').removeClass('display-n');",300);
 		$('#inputdata').addClass('animated bounceInLeft');
 	}
-
 	
 	$(document).ready(function () {
 		show();
@@ -261,14 +264,17 @@
 <main >
 
 	<div class="fixed-action-btn horizontal" style="bottom: 45px; right: 24px;">
-	    <a class="btn-floating btn-large red " onclick="mininput()">
+	    <a class="btn-floating btn-large red" onclick="mininput()">
 	      <i class="large material-icons">mode_edit</i>
 	    </a>
 	    <ul>
-	        <li><a class="btn-floating red" onclick="del()"><i class="material-icons">delete</i></a></li>
-	        <li><a class="btn-floating yellow" onclick="inputinoutif()"><i class="material-icons">view_list</i></a></li>
-	        <li><a class="btn-floating green" onclick="show()"><i class="material-icons">publish</i></a></li>
+	        <li><a class="btn-floating red tooltipped" onclick="del()" data-position="top" data-delay="50" data-tooltip="刪除"><i class="material-icons">delete</i></a></li>
+
+	        <li><a class="btn-floating yellow tooltipped" onclick="inputinoutif()" data-position="top" data-delay="50" data-tooltip="顯示/隱藏"><i class="material-icons">view_list</i></a></li>
+
+	        <li><a class="btn-floating green tooltipped" onclick="show()"><i class="material-icons">publish</i></a></li>
 	        <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
+
 	    </ul>
 	</div>
 
@@ -343,6 +349,8 @@
 						<a onclick="del()" class="btn"><i class="material-icons right">delete</i>刪除</a>
 						<a onclick="upd()" class="btn"><i class="material-icons right">mode_edit</i>修改</a>
 						<a onclick="show()" class="btn">初始化<i style="margin-left: 5px;" class="fa fa-repeat" aria-hidden="true"></i></a>
+						
+
 				    </div>
 				</div><!-- row -->
 		    </form>
