@@ -7,6 +7,8 @@
 	<!-- materialize -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+	<!-- Icons -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
 	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<!-- animate動畫 -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/animatecss/3.5.1/animate.min.css">
@@ -86,13 +88,21 @@
 				dataArray.push('<td>'+value.enter_date+'</td>');
 				dataArray.push('<td>'+value.summary+'</td>');
 
-				// dataArray.push('<td>'+'<button  onclick="delb()">刪除</button>'+'</td>'); 
 			dataArray.push('</tr>');
 
 			
 		});
 		$('tbody#lists').html(dataArray.join(""));
-		trclick();
+		function trclick(){
+			alert('123');
+			$('#lists tr').click(function(){
+				$(this).addClass('on').siblings('.on').removeClass('on');
+				getOne($(this).attr('id'));
+				$('label').addClass('text');
+				
+			});
+		}
+		return trclick();
 		
 	}
 
@@ -153,7 +163,7 @@
 		$.each(getData, function(key, value) {
 			if(purchase_no===value.purchase_no) {
 				$('input[name=purchase_no]').val(value.purchase_no); 
-				$('input[name= vendor_no]').val(value.vendor_no);
+				$('input[name=vendor_no]').val(value.vendor_no);
 				$('input[name=product_name]').val(value.product_name);
 				$('input[name=product_code]').val(value.product_code);
 				$('input[name=quantity]').val(value.quantity);
@@ -173,21 +183,26 @@
 		});
 	}
 
-	var trclick = function(){
-		$('#lists tr').click(function(){
-			$(this).addClass('on').siblings('.on').removeClass('on');
-			getOne($(this).attr('id'));
-			$('label').addClass('text');
-		});
-	}
+
 
 	var mininput = function(){
-		if ($("#inputdata").hasClass("inputdata")) {$("#inputdata").removeClass("inputdata").addClass("mininputdata");
-		}else{ $("#inputdata").removeClass("mininputdata").addClass("inputdata"); }
-		inputin();
+		if ($("#inputdata").hasClass("inputdata")) {
+			inputinoutif ();
+			setTimeout('$("#inputdata").removeClass("inputdata").addClass("mininputdata");inputinoutif ();',500);
+			setTimeout('inputin();',1000);
+		}else{
+			inputinoutif ();
+			setTimeout('$("#inputdata").removeClass("mininputdata").addClass("inputdata");inputinoutif ();',700);
+			setTimeout('inputin();',1500);
+		}
+		
 	}
 
 	// 動畫效果
+	var inputinoutif = function(){
+		if ($("#inputdata").hasClass("bounceInLeft")) {inputout();}else{ inputin();}
+	}
+
 	var inputout = function(){
 		 $('#inputdata').removeClass('bounceInLeft').addClass('animated bounceOutLeft');
 		 setTimeout("$('#inputdata').addClass('display-n');",700);
@@ -199,10 +214,7 @@
 		$('#inputdata').addClass('animated bounceInLeft');
 	}
 
-	var inputinoutif = function(){
-		if ($("#inputdata").hasClass("bounceInLeft")) {inputout();}else{ inputin();}
-	}
-
+	
 	$(document).ready(function () {
 		show();
 		inputin();
@@ -225,12 +237,12 @@
 	.inputdata{
 		position: relative;
 		top:10px;
-		width: 90%;
-		margin-left: 2%;
+		width: 100%;
+		/*margin-left: 2%;*/
 	}
 	.mininputdata{
 		position: fixed;
-		z-index: 999;
+		z-index: 99;
 		bottom: 3%;
 		width: 92%;
 		height: 100px;
@@ -238,9 +250,10 @@
 		overflow: auto;
 		background-color: #FFF;
 	}
-	.inputdata a{
+	.inputdata a,.mininputdata a{
 		margin: 10px;
 	}
+
 </style>
 <body>
 
@@ -254,7 +267,7 @@
 	    <ul>
 	        <li><a class="btn-floating red" onclick="del()"><i class="material-icons">delete</i></a></li>
 	        <li><a class="btn-floating yellow" onclick="inputinoutif()"><i class="material-icons">view_list</i></a></li>
-	        <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
+	        <li><a class="btn-floating green" onclick="show()"><i class="material-icons">publish</i></a></li>
 	        <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
 	    </ul>
 	</div>
@@ -264,74 +277,74 @@
 		<div class="row">
 		    <form class="col s12">
 
-			<div class="row">
-				<div class="input-field col s3" id="search" >
-					<input type="text" name="purchase_no" id="input_text" class="validate"><label>進貨編號</label>
-				</div>
-				<div class="input-field col s3">
-					<input type="text" name="vendor_no" class="validate"><label >廠商編號</label>
-				</div>
-				<div class="input-field col s3">
-					<input type="text" name="product_name"  class="validate"><label>產品名稱</label>
-		        </div>
-				<div class="input-field col s3">
-		          <input type="text" name="product_code" class="validate"><label>產品代號</label>
-		        </div>
+				<div class="row">
+					<div class="input-field col s3">
+						<input type="text" name=" id="search" purchase_no"class="validate"><label>進貨編號</label>
+					</div>
+					<div class="input-field col s3">
+						<input type="text" name="vendor_no" class="validate"><label >廠商編號</label>
+					</div>
+					<div class="input-field col s3">
+						<input type="text" name="product_name"  class="validate"><label>產品名稱</label>
+			        </div>
+					<div class="input-field col s3">
+			          <input type="text" name="product_code" class="validate"><label>產品代號</label>
+			        </div>
 
 
-				<div class="input-field col s3">
-		          <input type="text" name="quantity" class="validate"><label>數量</label>
-		        </div>
-		         <div class="input-field col s3">
-		          <input type="text" name="unit" class="validate"><label>單位</label>
-		        </div>
-		        <div class="input-field col s3">
-		          <input type="text" name="price"  class="validate"><label>單價</label>
-		        </div>
-				<div class="input-field col s3">
-		          <input type="text" name="tax" class="validate"><label>稅金金額</label>
-				</div>
+					<div class="input-field col s3">
+			          <input type="text" name="quantity" class="validate"><label>數量</label>
+			        </div>
+			         <div class="input-field col s3">
+			          <input type="text" name="unit" class="validate"><label>單位</label>
+			        </div>
+			        <div class="input-field col s3">
+			          <input type="text" name="price"  class="validate"><label>單價</label>
+			        </div>
+					<div class="input-field col s3">
+			          <input type="text" name="tax" class="validate"><label>稅金金額</label>
+					</div>
 
 
-				<div class="input-field col s3">
-		          <input type="text" name="fee_date" class="validate"><label>購買日期</label>
-		        </div>
-		         <div class="input-field col s3">
-		          <input type="text" name="vendor_sales" class="validate"><label>廠商業務</label>
-		        </div>
-		        <div class="input-field col s3">
-		          <input type="text" name="voucher_no"  class="validate"><label>傳票代號</label>
-		        </div>
-				<div class="input-field col s3">
-		          <input type="text" name="debit_code" class="validate"><label>借方科目</label>
-				</div>
+					<div class="input-field col s3">
+			          <input type="text" name="fee_date" class="validate"><label>購買日期</label>
+			        </div>
+					<div class="input-field col s3">
+			          <input type="text" name="vendor_sales" class="validate"><label>廠商業務</label>
+			        </div>
+			        <div class="input-field col s3">
+			          <input type="text" name="voucher_no"  class="validate"><label>傳票代號</label>
+			        </div>
+					<div class="input-field col s3">
+			          <input type="text" name="debit_code" class="validate"><label>借方科目</label>
+					</div>
 
 
-				<div class="input-field col s3">
-					<input type="text" name="credit_code" class="validate"><label>貸方科目</label>
-		        </div>
-				<div class="input-field col s3">
-		         	<input type="text" name="project_no" class="validate"><label>專案代號</label>
-		        </div>
-		        <div class="input-field col s3">
-					<input type="text" name="emp_no"  class="validate"><label>需求人員</label>
-		        </div>
-				<div class="input-field col s3">
-					<input type="text" name="enter_date" class="validate"><label>輸入日期</label>
-				</div>
+					<div class="input-field col s3">
+						<input type="text" name="credit_code" class="validate"><label>貸方科目</label>
+			        </div>
+					<div class="input-field col s3">
+			         	<input type="text" name="project_no" class="validate"><label>專案代號</label>
+			        </div>
+			        <div class="input-field col s3">
+						<input type="text" name="emp_no"  class="validate"><label>需求人員</label>
+			        </div>
+					<div class="input-field col s3">
+						<input type="text" name="enter_date" class="validate"><label>輸入日期</label>
+					</div>
 
 
-				<div class="input-field col s3">
-		          <input type="text" name="summary" class="validate"><label>摘要</label>
-				</div>
-				
-				<div class="bttn">
-					<a onclick="out()" class="btn"><i class="material-icons right">send</i>送出</a>
-					<a onclick="del()" class="btn"><i class="material-icons right">delete</i>刪除</a>
-					<a onclick="upd()" class="btn"><i class="material-icons right">mode_edit</i>修改</a>
-					<a onclick="inputout()" class="btn">初始化</a>
-			    </div>
-			</div>
+					<div class="input-field col s3">
+			          <input type="text" name="summary" class="validate"><label>摘要</label>
+					</div>
+					
+					<div class="bttn" class="col s9">
+						<a onclick="out()" class="btn"><i class="material-icons right">send</i>送出</a>
+						<a onclick="del()" class="btn"><i class="material-icons right">delete</i>刪除</a>
+						<a onclick="upd()" class="btn"><i class="material-icons right">mode_edit</i>修改</a>
+						<a onclick="show()" class="btn">初始化<i style="margin-left: 5px;" class="fa fa-repeat" aria-hidden="true"></i></a>
+				    </div>
+				</div><!-- row -->
 		    </form>
 	    </div>
 	</div>
