@@ -11,7 +11,7 @@
 	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 
-	<link rel="stylesheet" href="../css/animate.css">
+	<link rel="stylesheet" href="css/animate.css">
 </head>
 <script>
 	var getData = new Object();
@@ -190,20 +190,29 @@
 			$('label').addClass('text');
 		});
 	}
-	var lnit = function(){
-		 $('input#input_text').characterCounter();
-		alert('123');
+	var inputout = function(){
+		 $('.inputdata').removeClass('bounceInLeft').addClass('animated bounceOutLeft');
+		 setTimeout("$('.inputdata').addClass('display-n');",700);
 	}
-	
+	var inputin = function(){
+		$('.inputdata').removeClass('bounceOutLeft');
+		setTimeout("$('.inputdata').removeClass('display-n');",300);
+		$('.inputdata').addClass('animated bounceInLeft');
+	}
 	$(document).ready(function () {
+		$('select').material_select();
 		show();
-		lnit();
+		inputin();
+		
 	});
 
 
 
 </script>
 <style>
+	.display-n{
+		display: none;
+	}
 	.thover:hover{ background-color:#d0d0d0; }
 	.on{ background-color:#d0d0d0; }
 	.onp{ background-color:red; }
@@ -245,15 +254,9 @@
 <main >
 
 	<div class="fixed-action-btn horizontal" style="bottom: 45px; right: 24px;">
-	    <a class="btn-floating btn-large red">
+	    <a class="btn-floating btn-large red " onclick="inputin()">
 	      <i class="large material-icons">mode_edit</i>
 	    </a>
-	    <ul>
-	      <li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>
-	      <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
-	      <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
-	      <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
-	    </ul>
 	</div>
 
 
@@ -328,7 +331,7 @@
 		      <a onclick="out()" class="btn">送出</a>
 		      <a onclick="del()" class="btn">刪除</a>
 		      <a onclick="upd()" class="btn">修改</a>
-		      <a onclick="lnit()" class="btn">初始化</a>
+		      <a onclick="inputout()" class="btn">初始化</a>
 		    </form>
 	    </div>
 	</div>
