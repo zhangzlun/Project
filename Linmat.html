@@ -12,8 +12,6 @@
 	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<!-- animate動畫 -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/animatecss/3.5.1/animate.min.css">
-
-
 </head>
 <script>
 	var getData = new Object();
@@ -95,11 +93,10 @@
 		});
 		$('tbody#lists').html(dataArray.join(""));
 		trclick();
-		search();
-		
+		search();	
 	}
 
-	//送出
+	//新增
 	var out = function (){
 
 		var s1 = $('input[name=purchase_no]').val();
@@ -134,6 +131,7 @@
 		show();
 	}
 
+	// 刪除
 	var del = function(){
 		var s1 = $('input[name=purchase_no]').val();
 		var post_data = {purchase_no:s1};
@@ -144,7 +142,12 @@
 		show();
 	}
 
+	//修改
 	var upd = function(){
+		var s1 = $('input[name=purchase_no]').val();
+		
+
+		var post_input = {purchase_no:s1 };
 
 		var bruce = new Bruce();
 		bruce.setData(post_input);
@@ -156,7 +159,7 @@
 		$.each(getData, function(key, value) {
 			if(purchase_no===value.purchase_no) {
 				$('input[name=purchase_no]').val(value.purchase_no); 
-				$('input[name= vendor_no]').val(value.vendor_no);
+				$('input[name=vendor_no]').val(value.vendor_no);
 				$('input[name=product_name]').val(value.product_name);
 				$('input[name=product_code]').val(value.product_code);
 				$('input[name=quantity]').val(value.quantity);
@@ -176,58 +179,17 @@
 		});
 	}
 
+	var search = function(){
+
+	}
+
+	// 表格點擊的動作
 	var trclick = function(){
 		$('#lists tr').click(function(){
 			$(this).addClass('on').siblings('.on').removeClass('on');
 			getOne($(this).attr('id'));
 			$('label').addClass('text');
 		});
-	}
-
-	var search = function(){
-		// $("#search").keydown(function(){
-		    //  $("input").css("background-color","#D6D6FF");
-		    // alert('123');
-		    var s1 = $('input[name=cho]').val();
-		    var s2 = $('input[name=value]').val();
-		
-
-		    var post_input = {cho:s1,value:s2};
-		    
-		    var bruce = new Bruce();
-		    bruce.setData(post_data);
-			var response = bruce.getJSON('http://www.daren.idv.tw/lin/purchase_cho');
-
-			var dataArray = new Array();
-			$.each(response.purchase_data , function(key, value) {
-				dataArray.push('<tr class="thover" id="'+value.purchase_no+'">');
-
-					dataArray.push('<td>'+value.purchase_no+'</td>');
-					dataArray.push('<td>'+value.vendor_no+'</td>'); 
-					dataArray.push('<td>'+value.product_name+'</td>');
-					dataArray.push('<td>'+value.product_code+'</td>');
-					dataArray.push('<td>'+value.quantity+'</td>');
-					dataArray.push('<td>'+value.unit+'</td>');
-					dataArray.push('<td>'+value.price+'</td>');
-					dataArray.push('<td>'+value.tax+'</td>');
-					dataArray.push('<td>'+value.fee_date+'</td>');
-					dataArray.push('<td>'+value.vendor_sales+'</td>');
-					dataArray.push('<td>'+value.voucher_no+'</td>');
-					dataArray.push('<td>'+value.debit_code+'</td>');
-					dataArray.push('<td>'+value.credit_code+'</td>');
-					dataArray.push('<td>'+value.project_no+'</td>');
-					dataArray.push('<td>'+value.emp_no+'</td>');
-					dataArray.push('<td>'+value.enter_date+'</td>');
-					dataArray.push('<td>'+value.summary+'</td>');
-
-					// dataArray.push('<td>'+'<button  onclick="delb()">刪除</button>'+'</td>'); 
-				dataArray.push('</tr>');
-
-				
-			});
-			$('tbody#luio').html(dataArray.join(""));
-
-		// });
 	}
 
 	// 動畫效果
@@ -243,14 +205,7 @@
 		}	
 	}
 
-	var inputinoutif = function(){
-		if ($("#inputdata").hasClass("bounceInLeft")) {inputout();}else{ inputin();}
-	}
-
-	var inputout = function(){
-		 $('#inputdata').removeClass('bounceInLeft').addClass('animated bounceOutLeft');
-		 setTimeout("$('#inputdata').addClass('display-n');",700);
-	}
+	var inputinoutif = function(){if ($("#inputdata").hasClass("bounceInLeft")) {inputout();}else{ inputin();}}
 
 	var inputin = function(){
 		$('#inputdata').removeClass('bounceOutLeft');
@@ -258,20 +213,41 @@
 		$('#inputdata').addClass('animated bounceInLeft');
 	}
 
+	var inputout = function(){
+		 $('#inputdata').removeClass('bounceInLeft');
+		 setTimeout("$('#inputdata').addClass('display-n');",700);
+		 $('#inputdata').addClass('animated bounceOutLeft');
+	}
+	var top = function(){
+		 jQuery("html,body").animate({
+			 scrollTop:0
+		},1000);
+	}
+
 	$(document).ready(function () {
 		show();
 		inputin();
+
+		$("#gotop").click(function(){
+		       $('#inputdata').animate({
+		           scrollTop:0
+		       },100);
+		 });
+		$('#inputdata').scroll(function() {
+		       if ( $(this).scrollTop() > 10){
+		           $('#gotop').fadeIn("fast");
+		       } else {
+		           $('#gotop').stop().fadeOut("fast");
+		       }
+		});
 	});
 
 </script>
 <style>
-	.display-n{
-		display: none;
-	}
-	.thover:hover{ background-color:#d0d0d0; }
-	.on{ background-color:#d0d0d0; }
-	.error{background-color: red;}
-	.inputli .libox{ float: left; }
+	.display-n{display: none;}
+	.thover:hover{ background-color:#d0d0d0;}
+	.on{background-color:#d0d0d0;}
+	.inputli .libox{float: left;}
 	.inputli{height: 150px;}
 	input{margin: 0px 10px; width:8em}
 	li{list-style-type: none; position: relative; left: -10px;margin: 10px;}
@@ -295,25 +271,13 @@
 	.inputdata a,.mininputdata a{
 		margin: 10px;
 	}
+	#gotop {
+	    display: none;
+	  
+	}
 </style>
 <body>
-<div class="test">
-	<div class="input-field col s3">
-	  <input type="text" name="cho" class="validate" ><label>摘要</label>
-	</div>
-	<div class="input-field col s3">
-	  <input type="text" name="value" class="validate" ><label>摘要</label>
-	</div>
 
-	<a onclick="search()" class="btn"><i class="material-icons right">send</i>送出</a>
-	<table border="3" style="border-collapse:collapse;" class="responsive-table centered bordered" >
-		<thead >
-			<tr><th>進貨編號</th><th>廠商編號</th><th>產品名稱</th><th>產品代號</th><th>數量</th><th>單位</th><th>單價</th><th>稅金金額</th><th>購買日期</th><th>廠商業務</th><th>傳票代號</th><th>借方科目</th><th>貸方科目</th><th>專案代號</th><th>需求人員</th><th>輸入日期</th><th>摘要</th></tr>
-		</thead>
-		<tbody id="luio">
-		</tbody>
-	</table>
-</div>
 	
 <main >
 	<div class="fixed-action-btn horizontal" style="bottom: 45px; right: 24px;">
@@ -332,6 +296,7 @@
 	</div>
 
 	<div id="inputdata" class="inputdata z-depth-2">
+	
 		<div class="row">
 		    <form class="col s12">
 
@@ -403,6 +368,8 @@
 					<a onclick="del()" class="btn"><i class="material-icons right">delete</i>刪除</a>
 					<a onclick="upd()" class="btn"><i class="material-icons right">mode_edit</i>修改</a>
 					<a onclick="show()" class="btn">初始化<i style="margin-left: 5px;" class="fa fa-repeat" aria-hidden="true"></i></a>
+					<a onclick="top()" class="btn" id="gotop"><i class="material-icons right">mode_edit</i>修改</a>
+				
 			    </div>
 			</div>
 		    </form>

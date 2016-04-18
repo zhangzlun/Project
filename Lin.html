@@ -105,7 +105,18 @@
 		show();
 	}
 
-
+	var upd = function(){
+		var s1 = $('input[name=purchase_no]').val();
+		var s3 = $('input[name=product_name]').val();
+		
+		var post_data = {purchase_no:s1, product_name:s3};
+		alert(JSON.stringify(post_data));
+		var bruce = new Bruce();
+		bruce.setData(post_data);
+		var response = bruce.getJSON('http://www.daren.idv.tw/lin/purchase_upd');
+		alert(JSON.stringify(response));
+		show();
+	}
 	var getOne = function(purchase_no) {
 		$.each(getData, function(key, value) {
 			if(purchase_no===value.purchase_no) {
@@ -176,6 +187,7 @@
 		</div>
 		<button onclick="out()">送出</button>
 		<button onclick="del()">刪除</button>
+		<button onclick="upd()">刪除</button>
 	</div>
 
 
