@@ -145,9 +145,24 @@
 	//修改
 	var upd = function(){
 		var s1 = $('input[name=purchase_no]').val();
-		
+		var s2 = $('input[name=vendor_no]').val();
+		var s3 = $('input[name=product_name]').val();
+		var s4 = $('input[name=product_code]').val();
+		var s5 = $('input[name=quantity]').val();
+		var s6 = $('input[name=unit]').val();
+		var s7 = $('input[name=price]').val();
+		var s8 = $('input[name=tax]').val();
+		var s9 = $('input[name=fee_date]').val();
+		var s10 = $('input[name=vendor_sales]').val();
+		var s11 = $('input[name=voucher_no]').val();
+		var s12 = $('input[name=debit_code]').val();
+		var s13 = $('input[name=credit_code]').val();
+		var s14 = $('input[name=project_no]').val();
+		var s15 = $('input[name=emp_no]').val();
+		var s16 = $('input[name=enter_date]').val();
+		var s17 = $('input[name=summary]').val();
 
-		var post_input = {purchase_no:s1 };
+		var post_input = {purchase_no:s1,vendor_no:s2, product_name:s3, product_code:s4, quantity:s5, unit:s6, price:s7, tax:s8, fee_date:s9, vendor_sales:s10, voucher_no:s11, debit_code:s12, credit_code:s13, project_no:s14, emp_no:s15 , enter_date:s16, summary:s17};
 
 		var bruce = new Bruce();
 		bruce.setData(post_input);
@@ -231,7 +246,7 @@
 		$("#gotop").click(function(){
 		       $('#inputdata').animate({
 		           scrollTop:0
-		       },100);
+		       },2000 ,'easeOutBounce');
 		 });
 		$('#inputdata').scroll(function() {
 		       if ( $(this).scrollTop() > 10){
@@ -263,7 +278,7 @@
 		z-index: 99;
 		bottom: 3%;
 		width: 92%;
-		height: 100px;
+		height: 150px;
 		margin-left: 2%;
 		overflow: auto;
 		background-color: #FFF;
@@ -272,8 +287,12 @@
 		margin: 10px;
 	}
 	#gotop {
-	    display: none;
-	  
+		position: fixed;
+		font-size: 20px;
+		background: #777;
+		color: white;
+		cursor: pointer;
+		display: none;
 	}
 </style>
 <body>
@@ -368,7 +387,7 @@
 					<a onclick="del()" class="btn"><i class="material-icons right">delete</i>刪除</a>
 					<a onclick="upd()" class="btn"><i class="material-icons right">mode_edit</i>修改</a>
 					<a onclick="show()" class="btn">初始化<i style="margin-left: 5px;" class="fa fa-repeat" aria-hidden="true"></i></a>
-					<a onclick="top()" class="btn" id="gotop"><i class="material-icons right">mode_edit</i>修改</a>
+					<a onclick="top()" 	 id="gotop"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
 				
 			    </div>
 			</div>
