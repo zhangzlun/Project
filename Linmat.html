@@ -255,6 +255,18 @@
 		           $('#gotop').stop().fadeOut("fast");
 		       }
 		});
+		$('.pagination a').click(function(){
+	
+			var p = $(this).text()
+
+			var page = {page:p};
+			alert(JSON.stringify(page));
+
+			var pag = new Bruce();
+			pag.setData(page);
+			var response = pag.getJSON('http://www.daren.idv.tw/lin/purchase_show');
+			alert(JSON.stringify(response));
+		});
 	});
 
 </script>
@@ -408,7 +420,18 @@
 		</table>
 	</div>
 </main>
- 	
+<footer>
+	<ul class="pagination center-align">
+		<input type="text" name="123"></input>
+	   <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+	   <li class="active"><a href="#!">1</a></li>
+	   <li class="waves-effect"><a href="#!">2</a></li>
+	   <li class="waves-effect"><a href="#!">3</a></li>
+	   <li class="waves-effect"><a href="#!">4</a></li>
+	   <li class="waves-effect"><a href="#!">5</a></li>
+	   <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+	 </ul>
+</footer>
 </body>
 </html>
   
