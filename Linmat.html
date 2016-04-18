@@ -42,7 +42,7 @@
 		}
 
 		this.setType = function(type) {
-			this.type = type; 
+			this.type = type;
 		}
 
 		this.setData = function(sendData) {
@@ -52,7 +52,7 @@
 		this.showJSON = function(url, target) {
 			var a = JSON.stringify(this.getJSON(url));
 			$(target).html(a);
-		} 
+		}
 	}
 
 	//接收
@@ -69,7 +69,7 @@
 			dataArray.push('<tr class="thover" id="'+value.purchase_no+'">');
 
 				dataArray.push('<td>'+value.purchase_no+'</td>');
-				dataArray.push('<td>'+value.vendor_no+'</td>'); 
+				dataArray.push('<td>'+value.vendor_no+'</td>');
 				dataArray.push('<td>'+value.product_name+'</td>');
 				dataArray.push('<td>'+value.product_code+'</td>');
 				dataArray.push('<td>'+value.quantity+'</td>');
@@ -86,14 +86,14 @@
 				dataArray.push('<td>'+value.enter_date+'</td>');
 				dataArray.push('<td>'+value.summary+'</td>');
 
-				// dataArray.push('<td>'+'<button  onclick="delb()">刪除</button>'+'</td>'); 
+				// dataArray.push('<td>'+'<button  onclick="delb()">刪除</button>'+'</td>');
 			dataArray.push('</tr>');
 
-			
+
 		});
 		$('tbody#lists').html(dataArray.join(""));
 		trclick();
-		search();	
+		search();
 	}
 
 	//新增
@@ -123,7 +123,7 @@
 		var bruce = new Bruce();
 		bruce.setData(post_input);
 		var response = bruce.getJSON('http://www.daren.idv.tw/lin/purchase_ist');
-		
+
 		if(response.status==-1) {
 			alert(response.dbError);
 			return;
@@ -144,6 +144,7 @@
 
 	//修改
 	var upd = function(){
+
 		var s1 = $('input[name=purchase_no]').val();
 		var s2 = $('input[name=vendor_no]').val();
 		var s3 = $('input[name=product_name]').val();
@@ -167,13 +168,14 @@
 		var bruce = new Bruce();
 		bruce.setData(post_input);
 		var response = bruce.getJSON('http://www.daren.idv.tw/lin/purchase_upd');
+
 		show();
 	}
 
 	var getOne = function(purchase_no) {
 		$.each(getData, function(key, value) {
 			if(purchase_no===value.purchase_no) {
-				$('input[name=purchase_no]').val(value.purchase_no); 
+				$('input[name=purchase_no]').val(value.purchase_no);
 				$('input[name=vendor_no]').val(value.vendor_no);
 				$('input[name=product_name]').val(value.product_name);
 				$('input[name=product_code]').val(value.product_code);
@@ -194,9 +196,9 @@
 		});
 	}
 
-	var search = function(){
-
-	}
+	// var search = function(){
+	// 	var 
+	// }
 
 	// 表格點擊的動作
 	var trclick = function(){
@@ -217,7 +219,7 @@
 			inputinoutif ();
 			setTimeout('$("#inputdata").removeClass("mininputdata").addClass("inputdata");inputinoutif ();',700);
 			setTimeout('inputin();',1500);
-		}	
+		}
 	}
 
 	var inputinoutif = function(){if ($("#inputdata").hasClass("bounceInLeft")) {inputout();}else{ inputin();}}
@@ -242,7 +244,10 @@
 	$(document).ready(function () {
 		show();
 		inputin();
-
+		$('.datepicker').pickadate({
+		   selectMonths: true, // Creates a dropdown to control month
+		   selectYears: 15 // Creates a dropdown of 15 years to control year
+		 });
 		$("#gotop").click(function(){
 		       $('#inputdata').animate({
 		           scrollTop:0
@@ -283,14 +288,14 @@
 	.inputdata{
 		position: relative;
 		top:10px;
-		width: 100%;
+		width: 70%;
 	}
 	.mininputdata{
 		position: fixed;
 		z-index: 99;
 		bottom: 3%;
 		width: 92%;
-		height: 150px;
+		height: 220px;
 		margin-left: 2%;
 		overflow: auto;
 		background-color: #FFF;
@@ -308,8 +313,8 @@
 	}
 </style>
 <body>
+<input type="date" class="datepicker">
 
-	
 <main >
 	<div class="fixed-action-btn horizontal" style="bottom: 45px; right: 24px;">
 	    <a class="btn-floating btn-large red" onclick="mininput()">
@@ -327,13 +332,13 @@
 	</div>
 
 	<div id="inputdata" class="inputdata z-depth-2">
-	
+
 		<div class="row">
 		    <form class="col s12">
 
 			<div class="row">
 				<div class="input-field col s3">
-					<input type="text" name="purchase_no"  class="validate" id="search"><label>進貨編號</label>
+					<input type="text" name="purchase_no" class="validate" id="search"><label>進貨編號</label>
 				</div>
 				<div class="input-field col s3">
 					<input type="text" name="vendor_no" class="validate"><label >廠商編號</label>
@@ -391,8 +396,6 @@
 				<div class="input-field col s3">
 		          <input type="text" name="summary" class="validate"><label>摘要</label>
 				</div>
-				
-				
 
 				<div class="bttn">
 					<a onclick="out()" class="btn"><i class="material-icons right">send</i>送出</a>
@@ -400,13 +403,12 @@
 					<a onclick="upd()" class="btn"><i class="material-icons right">mode_edit</i>修改</a>
 					<a onclick="show()" class="btn">初始化<i style="margin-left: 5px;" class="fa fa-repeat" aria-hidden="true"></i></a>
 					<a onclick="top()" 	 id="gotop"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
-				
+
 			    </div>
 			</div>
 		    </form>
 	    </div>
 	</div>
-	
 
 
 
@@ -420,6 +422,7 @@
 		</table>
 	</div>
 </main>
+<<<<<<< HEAD
 <footer>
 	<ul class="pagination center-align">
 		<input type="text" name="123"></input>
@@ -432,6 +435,8 @@
 	   <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
 	 </ul>
 </footer>
+=======
+
+>>>>>>> 843ea9e4805f497f140cf1e79a3e56e6b1843f87
 </body>
 </html>
-  
