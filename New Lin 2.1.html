@@ -19,6 +19,7 @@
 </head>
 <script>
 	var getData = new Object();
+
 	var Bruce = function() {
 
 		this.type = 'POST';
@@ -58,25 +59,21 @@
 			$(target).html(a);
 		} 
 	}
-
+	var bruce = new Bruce();
+	
 	//接收
 	var show = function(){
 
-
 		var all_Inputs = $("input[type=text]");
 		all_Inputs.val("");
-		$('label').removeClass('text');
+		$('label').toggleClass('text');
 
-
-
-		var bruce = new Bruce();
 		var response = bruce.getJSON('http://www.daren.idv.tw/lin/purchase_show');
 		getData = response.purchase_data;
 
 		var dataArray = new Array();
 		$.each(response.purchase_data, function(key, value) {
 			dataArray.push('<tr class="thover" id="'+value.purchase_no+'">');
-
 				dataArray.push('<td>'+value.purchase_no+'</td>');
 				dataArray.push('<td>'+value.vendor_no+'</td>'); 
 				dataArray.push('<td>'+value.product_name+'</td>');
@@ -94,14 +91,12 @@
 				dataArray.push('<td>'+value.emp_no+'</td>');
 				dataArray.push('<td>'+value.enter_date+'</td>');
 				dataArray.push('<td>'+value.summary+'</td>');
-
-
 			dataArray.push('</tr>');
-
 		});
 		$('tbody#lists').html(dataArray.join(""));
+
+		page();
 		trclick();
-		
 	}
 
 	//新增
@@ -128,7 +123,6 @@
 		var post_input = {purchase_no:s1,vendor_no:s2, product_name:s3, product_code:s4, quantity:s5, unit:s6, price:s7, tax:s8, fee_date:s9, vendor_sales:s10, voucher_no:s11, debit_code:s12, credit_code:s13, project_no:s14, emp_no:s15 , enter_date:s16, summary:s17};
 		// alert(JSON.stringify(post_data));
 
-		var bruce = new Bruce();
 		bruce.setData(post_input);
 		var response = bruce.getJSON('http://www.daren.idv.tw/lin/purchase_ist');
 		
@@ -144,7 +138,7 @@
 		var s1 = $('input[name=purchase_no]').val();
 		var post_data = {purchase_no:s1};
 
-		var bruce = new Bruce();
+
 		bruce.setData(post_data);
 		var response = bruce.getJSON('http://www.daren.idv.tw/lin/purchase_del');
 		show();
@@ -172,12 +166,13 @@
 
 		var post_input = {purchase_no:s1,vendor_no:s2, product_name:s3, product_code:s4, quantity:s5, unit:s6, price:s7, tax:s8, fee_date:s9, vendor_sales:s10, voucher_no:s11, debit_code:s12, credit_code:s13, project_no:s14, emp_no:s15 , enter_date:s16, summary:s17};
 
-		var bruce = new Bruce();
+
 		bruce.setData(post_input);
 		var response = bruce.getJSON('http://www.daren.idv.tw/lin/purchase_upd');
 		show();
 	}
 
+	// 表格點後傳到 input的動作
 	var getOne = function(purchase_no) {
 		$.each(getData, function(key, value) {
 			if(purchase_no===value.purchase_no) {
@@ -202,31 +197,21 @@
 		});
 	}
 
-	var search = function(){
-		var bruce = new Bruce();
+	// Page 頁數迴圈
+	var page = function(){
+
 		var response = bruce.getJSON('http://www.daren.idv.tw/lin/purchase_show');
 		var gpage = response.PageCount+1;
 		var max = new Array();
-
+	
 		max.push('<li class="waves-effect"><a href="#!"><i class="material-icons">chevron_left</i></a></li>')
 		for(i=1; i<gpage ;i++){
 		　max.push('<li class="waves-effect"><a href="#!">'+i+'</a></li>')
 		}
 		max.push('<li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>')
 		$('ul.pagination').html(max.join(""));
-
-		$()
-
-		$('.pagination a').click(function(key,value){
-			var s1 = $(this).text();
-
-			// alert(JSON.stringify());
-
-			if (gpage == s1) {
-				alert('good');
-			}
-		});
 	}
+
 
 	// 表格點擊的動作
 	var trclick = function(){
@@ -237,38 +222,8 @@
 		});
 	}
 
-
-	// 動畫效果
-	var mininput = function(){
-		if ($("#inputdata").hasClass("inputdata")) {
-			inputinoutif ();
-			setTimeout('$("#inputdata").removeClass("inputdata").addClass("mininputdata");inputinoutif ();',500);
-			setTimeout('inputin();',1000);
-		}else{
-			inputinoutif ();
-			setTimeout('$("#inputdata").removeClass("mininputdata").addClass("inputdata");inputinoutif ();',700);
-			setTimeout('inputin();',1500);
-		}	
-	}
-
-	var inputinoutif = function(){if ($("#inputdata").hasClass("bounceInLeft")) {inputout();}else{ inputin();}}
-
-	var inputin = function(){
-		$('#inputdata').removeClass('bounceOutLeft');
-		setTimeout("$('#inputdata').removeClass('display-n');",300);
-		$('#inputdata').addClass('animated bounceInLeft');
-	}
-
-	var inputout = function(){
-		 $('#inputdata').removeClass('bounceInLeft');
-		 setTimeout("$('#inputdata').addClass('display-n');",700);
-		 $('#inputdata').addClass('animated bounceOutLeft');
-	}
-
-	
 	$(document).ready(function () {
 		show();
-		search();
 	});
 
 </script>
@@ -280,7 +235,7 @@
 	.thover:hover{ background-color:#d0d0d0;}
 	.on{background-color:#d0d0d0;}
 
-
+	/*網頁內容樣式*/
 	#inputdata{
 		position: relative;
 		margin: 0px auto;
@@ -348,10 +303,13 @@
 							<input  type="text" name="purchase_no"  class="validate" id="search"><label>進貨編號</label>
 						</div>
 						<div class="input-field col">
+							<a href="#" style=" position: absolute; right:5px;"><i class="small material-icons">playlist_add</i></a>
 							<input type="text" name="product_name"  class="validate"><label>產品名稱</label>
+
 						</div>
 						<div class="input-field col">
-						  <input type="text" name="product_code" class="validate"><label>產品代號</label>
+							<a href="#" style="position: absolute;right:5px;"><i class="small material-icons">playlist_add</i></a>
+							<input type="text" name="product_code" class="validate"><label>產品代號</label>
 						</div>
 
 						<div class="input-field col">
@@ -386,20 +344,17 @@
 					
 					<div class="inputbox company col s4 m2">
 
-							<div class=" col #29b6f6 light-blue-text lighten-1" >
-								<h5>廠商</h5>
-							</div>
 							<div class="input-field col">
 								<input type="text" name="vendor_no" class="validate"><label>廠商編號</label>
 							</div>
 							<div class="input-field col">
 								<input type="text" name="vendor_sales" class="validate"><label>廠商業務</label>
 							</div>
-						<div class="inputbox personnel">
+						
+					</div><!-- company  END -->
 
-							<div class=" col #29b6f6 light-blue-text lighten-1" >
-								<h5>人員</h5>
-							</div>
+					<div class="inputbox personnel col s4 m2">
+
 							<div class="input-field col">
 								<input type="text" name="emp_no"  class="validate"><label>需求人員</label>
 							</div>
@@ -409,10 +364,8 @@
 							<div class="input-field col">
 							  <input type="text" name="summary" class="validate"><label>摘要</label>
 							</div>
-						</div>
-					</div><!-- product END -->
-
-					<div id="confirm" class="col m8 z-depth-1">
+					</div>
+<!--				<div id="confirm" class="col m8 ">
 						<table class="responsive-table centered bordered" >
 							<thead >
 								<tr><th>進貨編號</th><th>產品名稱</th><th>產品代號</th><th>數量</th><th>單位</th><th>單價</th><th>稅金金額</th><th>傳票代號</th><th>借方科目</th><th>貸方科目</th><th>專案代號</th><th>購買日期</th>
@@ -427,7 +380,7 @@
 							<a onclick="show()" class="btn">初始化<i style="margin-left: 5px;" class="fa fa-repeat" aria-hidden="true"></i></a>
 							<a onclick="top()" id="gotop"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
 					    </div>
-					</div><!--confirm END -->
+					</div><!--confirm END --> 
 				</div><!-- row END-->
 					
 		    </form>
@@ -471,7 +424,7 @@
 	   <li class="active"><a href="#!">1</a></li>
 	   <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
 	</ul>
+
 </footer>
 </body>
 </html>
-  
