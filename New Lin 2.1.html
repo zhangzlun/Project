@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>JSON</title>
+	<script src="js/jquery-2.1.4.min.js"></script>
+	<!-- materialize -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+	<!-- Icons -->
+	<link rel="stylesheet" href="css/materialize.css">
+	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!-- animate動畫 -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/animatecss/3.5.1/animate.min.css">
+
+	<link rel="https://cdn.jsdelivr.net/bootstrap.datepicker/0.1/less/datepicker.less">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css">
+	<script src="https://cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js"></script>
+</head>
+<script>
+	var getData = new Object();
+	var Bruce = function() {
+
+		this.type = 'POST';
+		this.dataType = 'json';
+		this.isAsync = false;
+		this.postData = {};
+
+		this.getJSON = function(url) {
+			var result;
+			$.ajax({
+				type: this.type,
+				url: url,
+				data: this.postData,
+				dataType: this.dataType,
+				async: this.isAsync,
+				success: function(response) {
+					result = response;
+				},
+				error: function(XMLHttpRequest) {
+					//alert(XMLHttpRequest.status);
+					result = {Status: -1, Result: XMLHttpRequest.status};
+				}
+			});
+			return result;
+		}
+
+		this.setType = function(type) {
+			this.type = type; 
+		}
+
+		this.setData = function(sendData) {
+			this.postData = sendData;
+		}
+
+		this.showJSON = function(url, target) {
+			var a = JSON.stringify(this.getJSON(url));
+			$(target).html(a);
+		} 
+	}
+
+	//接收
+	var show = function(){
+
+
+		var all_Inputs = $("input[type=text]");
+		all_Inputs.val("");
+		$('label').removeClass('text');
+
+
+
+		var bruce = new Bruce();
+		var response = bruce.getJSON('http://www.daren.idv.tw/lin/purchase_show');
+		getData = response.purchase_data;
+
+		var dataArray = new Array();
+		$.each(response.purchase_data, function(key, value) {
+			dataArray.push('<tr class="thover" id="'+value.purchase_no+'">');
+
+				dataArray.push('<td>'+value.purchase_no+'</td>');
+				dataArray.push('<td>'+value.vendor_no+'</td>'); 
+				dataArray.push('<td>'+value.product_name+'</td>');
+				dataArray.push('<td>'+value.product_code+'</td>');
+				dataArray.push('<td>'+value.quantity+'</td>');
+				dataArray.push('<td>'+value.unit+'</td>');
+				dataArray.push('<td>'+value.price+'</td>');
+				dataArray.push('<td>'+value.tax+'</td>');
+				dataArray.push('<td>'+value.fee_date+'</td>');
+				dataArray.push('<td>'+value.vendor_sales+'</td>');
+				dataArray.push('<td>'+value.voucher_no+'</td>');
+				dataArray.push('<td>'+value.debit_code+'</td>');
+				dataArray.push('<td>'+value.credit_code+'</td>');
+				dataArray.push('<td>'+value.project_no+'</td>');
+				dataArray.push('<td>'+value.emp_no+'</td>');
+				dataArray.push('<td>'+value.enter_date+'</td>');
+				dataArray.push('<td>'+value.summary+'</td>');
+
+
+			dataArray.push('</tr>');
+
+		});
+		$('tbody#lists').html(dataArray.join(""));
+		trclick();
+		
+	}
+
+	//新增
+	var out = function (){
+
+		var s1 = $('input[name=purchase_no]').val();
+		var s2 = $('input[name=vendor_no]').val();
+		var s3 = $('input[name=product_name]').val();
+		var s4 = $('input[name=product_code]').val();
+		var s5 = $('input[name=quantity]').val();
+		var s6 = $('input[name=unit]').val();
+		var s7 = $('input[name=price]').val();
+		var s8 = $('input[name=tax]').val();
+		var s9 = $('input[name=fee_date]').val();
+		var s10 = $('input[name=vendor_sales]').val();
+		var s11 = $('input[name=voucher_no]').val();
+		var s12 = $('input[name=debit_code]').val();
+		var s13 = $('input[name=credit_code]').val();
+		var s14 = $('input[name=project_no]').val();
+		var s15 = $('input[name=emp_no]').val();
+		var s16 = $('input[name=enter_date]').val();
+		var s17 = $('input[name=summary]').val();
+
+		var post_input = {purchase_no:s1,vendor_no:s2, product_name:s3, product_code:s4, quantity:s5, unit:s6, price:s7, tax:s8, fee_date:s9, vendor_sales:s10, voucher_no:s11, debit_code:s12, credit_code:s13, project_no:s14, emp_no:s15 , enter_date:s16, summary:s17};
+		// alert(JSON.stringify(post_data));
+
+		var bruce = new Bruce();
+		bruce.setData(post_input);
+		var response = bruce.getJSON('http://www.daren.idv.tw/lin/purchase_ist');
+		
+		if(response.status==-1) {
+			alert(response.dbError);
+			return;
+		}
+		show();
+	}
+
+	// 刪除
+	var del = function(){
+		var s1 = $('input[name=purchase_no]').val();
+		var post_data = {purchase_no:s1};
+
+		var bruce = new Bruce();
+		bruce.setData(post_data);
+		var response = bruce.getJSON('http://www.daren.idv.tw/lin/purchase_del');
+		show();
+	}
+
+	//修改
+	var upd = function(){
+		var s1 = $('input[name=purchase_no]').val();
+		var s2 = $('input[name=vendor_no]').val();
+		var s3 = $('input[name=product_name]').val();
+		var s4 = $('input[name=product_code]').val();
+		var s5 = $('input[name=quantity]').val();
+		var s6 = $('input[name=unit]').val();
+		var s7 = $('input[name=price]').val();
+		var s8 = $('input[name=tax]').val();
+		var s9 = $('input[name=fee_date]').val();
+		var s10 = $('input[name=vendor_sales]').val();
+		var s11 = $('input[name=voucher_no]').val();
+		var s12 = $('input[name=debit_code]').val();
+		var s13 = $('input[name=credit_code]').val();
+		var s14 = $('input[name=project_no]').val();
+		var s15 = $('input[name=emp_no]').val();
+		var s16 = $('input[name=enter_date]').val();
+		var s17 = $('input[name=summary]').val();
+
+		var post_input = {purchase_no:s1,vendor_no:s2, product_name:s3, product_code:s4, quantity:s5, unit:s6, price:s7, tax:s8, fee_date:s9, vendor_sales:s10, voucher_no:s11, debit_code:s12, credit_code:s13, project_no:s14, emp_no:s15 , enter_date:s16, summary:s17};
+
+		var bruce = new Bruce();
+		bruce.setData(post_input);
+		var response = bruce.getJSON('http://www.daren.idv.tw/lin/purchase_upd');
+		show();
+	}
+
+	var getOne = function(purchase_no) {
+		$.each(getData, function(key, value) {
+			if(purchase_no===value.purchase_no) {
+				$('input[name=purchase_no]').val(value.purchase_no); 
+				$('input[name=vendor_no]').val(value.vendor_no);
+				$('input[name=product_name]').val(value.product_name);
+				$('input[name=product_code]').val(value.product_code);
+				$('input[name=quantity]').val(value.quantity);
+				$('input[name=unit]').val(value.unit);
+				$('input[name=price]').val(value.price);
+				$('input[name=tax]').val(value.tax);
+				$('input[name=fee_date]').val(value.fee_date);
+				$('input[name=vendor_sales]').val(value.vendor_sales);
+				$('input[name=voucher_no]').val(value.voucher_no);
+				$('input[name=debit_code]').val(value.debit_code);
+				$('input[name=credit_code]').val(value.credit_code);
+				$('input[name=project_no]').val(value.project_no);
+				$('input[name=emp_no]').val(value.emp_no);
+				$('input[name=enter_date]').val(value.enter_date);
+				$('input[name=summary]').val(value.summary);
+			}
+		});
+	}
+
+	var search = function(){
+		var bruce = new Bruce();
+		var response = bruce.getJSON('http://www.daren.idv.tw/lin/purchase_show');
+		var gpage = response.PageCount+1;
+		var max = new Array();
+
+		max.push('<li class="waves-effect"><a href="#!"><i class="material-icons">chevron_left</i></a></li>')
+		for(i=1; i<gpage ;i++){
+		　max.push('<li class="waves-effect"><a href="#!">'+i+'</a></li>')
+		}
+		max.push('<li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>')
+		$('ul.pagination').html(max.join(""));
+
+		$()
+
+		$('.pagination a').click(function(key,value){
+			var s1 = $(this).text();
+
+			// alert(JSON.stringify());
+
+			if (gpage == s1) {
+				alert('good');
+			}
+		});
+	}
+
+	// 表格點擊的動作
+	var trclick = function(){
+		$('#lists tr').click(function(){
+			$(this).addClass('on').siblings('.on').removeClass('on');
+			getOne($(this).attr('id'));
+			$('label').addClass('text');
+		});
+	}
+
+
+	// 動畫效果
+	var mininput = function(){
+		if ($("#inputdata").hasClass("inputdata")) {
+			inputinoutif ();
+			setTimeout('$("#inputdata").removeClass("inputdata").addClass("mininputdata");inputinoutif ();',500);
+			setTimeout('inputin();',1000);
+		}else{
+			inputinoutif ();
+			setTimeout('$("#inputdata").removeClass("mininputdata").addClass("inputdata");inputinoutif ();',700);
+			setTimeout('inputin();',1500);
+		}	
+	}
+
+	var inputinoutif = function(){if ($("#inputdata").hasClass("bounceInLeft")) {inputout();}else{ inputin();}}
+
+	var inputin = function(){
+		$('#inputdata').removeClass('bounceOutLeft');
+		setTimeout("$('#inputdata').removeClass('display-n');",300);
+		$('#inputdata').addClass('animated bounceInLeft');
+	}
+
+	var inputout = function(){
+		 $('#inputdata').removeClass('bounceInLeft');
+		 setTimeout("$('#inputdata').addClass('display-n');",700);
+		 $('#inputdata').addClass('animated bounceOutLeft');
+	}
+
+	
+	$(document).ready(function () {
+		show();
+		search();
+	});
+
+</script>
+<style>
+	nav{background-color: #fff; font-weight:900;}
+	.display-n{display: none;}
+	/*JS 使用樣式*/
+	.text{-webkit-transform:  translateY(-100%);transform: translateY(-100%);}
+	.thover:hover{ background-color:#d0d0d0;}
+	.on{background-color:#d0d0d0;}
+
+
+	#inputdata{
+		position: relative;
+		margin: 0px auto;
+		top:10px;
+		background-color: #fff;
+		width: 98%;
+	}
+	#confirm{
+		margin-top: 10px;
+		right:1%;
+		position: fixed;
+		z-index: 99;
+		background-color: #FFF;
+		height: 80%;
+	}
+	#confirm .bttn{
+		position: absolute;
+		bottom: 10px;
+	}
+	#tables{
+		position: relative;
+		margin: 0px auto;
+		width: 98%;
+		top:5px;
+		background-color: #fff;
+	}
+	footer{
+		position: relative;
+		bottom: 0px;
+		height:100px;
+		background-color: #fff;
+	}
+
+	/*materialize 樣式更改*/
+	#tables td ,th {
+		padding: 0px 5px!important;
+	}
+	input{
+		height: 2.35rem !important;
+		margin: 0 0 5px 0 !important;
+	}
+</style>
+<body class="#f5f5f5 grey lighten-4">
+<header>
+	<nav class="z-depth-1">
+	    <div class="nav-wrapper">
+	      <a href="#" class="brand-logo #0288d1 light-blue-text darken-2">練習用</a>
+	    </div>
+	</nav>
+</header>
+	
+<main >
+	<div id="inputdata" class="inputdata z-depth-1 ">
+	
+		<div class="row">
+		    <form class="col s12">
+				<div class="row">
+				
+					<div class="inputbox product col s4 m2">
+
+						<div class=" col #29b6f6 light-blue-text lighten-1" >
+							<h5 >產品</h5>
+						</div>
+						<div class="input-field col">
+							<input  type="text" name="purchase_no"  class="validate" id="search"><label>進貨編號</label>
+						</div>
+						<div class="input-field col">
+							<input type="text" name="product_name"  class="validate"><label>產品名稱</label>
+						</div>
+						<div class="input-field col">
+						  <input type="text" name="product_code" class="validate"><label>產品代號</label>
+						</div>
+
+						<div class="input-field col">
+						  <input type="text" name="quantity" class="validate"><label>數量</label>
+						</div>
+						 <div class="input-field col">
+						  <input type="text" name="unit" class="validate"><label>單位</label>
+						</div>
+						<div class="input-field col">
+						  <input type="text" name="price"  class="validate"><label>單價</label>
+						</div>
+						<div class="input-field col">
+						  <input type="text" name="tax" class="validate"><label>稅金金額</label>
+						</div>
+						<div class="input-field col">
+						  <input type="text" name="voucher_no"  class="validate"><label>傳票代號</label>
+						</div>
+						<div class="input-field col">
+						  <input type="text" name="debit_code" class="validate"><label>借方科目</label>
+						</div>
+						<div class="input-field col">
+							<input type="text" name="credit_code" class="validate"><label>貸方科目</label>
+						</div>
+						<div class="input-field col">
+						 	<input id="first_name" type="text" class="validate"><label>專案代號</label>
+						</div>
+						<div class="input-field col">
+						  <input type="text" name="fee_date" class="validate"><label>購買日期</label>
+						</div>
+				
+					</div><!-- product END -->
+					
+					<div class="inputbox company col s4 m2">
+
+							<div class=" col #29b6f6 light-blue-text lighten-1" >
+								<h5>廠商</h5>
+							</div>
+							<div class="input-field col">
+								<input type="text" name="vendor_no" class="validate"><label>廠商編號</label>
+							</div>
+							<div class="input-field col">
+								<input type="text" name="vendor_sales" class="validate"><label>廠商業務</label>
+							</div>
+						<div class="inputbox personnel">
+
+							<div class=" col #29b6f6 light-blue-text lighten-1" >
+								<h5>人員</h5>
+							</div>
+							<div class="input-field col">
+								<input type="text" name="emp_no"  class="validate"><label>需求人員</label>
+							</div>
+							<div class="input-field col">
+								<input type="text" name="enter_date" class="validate"><label>輸入日期</label>
+							</div>
+							<div class="input-field col">
+							  <input type="text" name="summary" class="validate"><label>摘要</label>
+							</div>
+						</div>
+					</div><!-- product END -->
+
+					<div id="confirm" class="col m8 z-depth-1">
+						<table class="responsive-table centered bordered" >
+							<thead >
+								<tr><th>進貨編號</th><th>產品名稱</th><th>產品代號</th><th>數量</th><th>單位</th><th>單價</th><th>稅金金額</th><th>傳票代號</th><th>借方科目</th><th>貸方科目</th><th>專案代號</th><th>購買日期</th>
+							</thead>
+							<tbody id="company">
+							</tbody>
+						</table>
+						<div class="bttn col s4" >
+							<a onclick="out()" class="btn"><i class="material-icons right">send</i>送出</a>
+							<a onclick="del()" class="btn"><i class="material-icons right">delete</i>刪除</a>
+							<a onclick="upd()" class="btn"><i class="material-icons right">mode_edit</i>修改</a>
+							<a onclick="show()" class="btn">初始化<i style="margin-left: 5px;" class="fa fa-repeat" aria-hidden="true"></i></a>
+							<a onclick="top()" id="gotop"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
+					    </div>
+					</div><!--confirm END -->
+				</div><!-- row END-->
+					
+		    </form>
+	    </div>
+	</div>
+	
+
+
+
+	<div id="tables" class="z-depth-1">
+		<table border="3" style="border-collapse:collapse;" class="responsive-table centered bordered" >
+			<thead >
+				<tr><th>進貨編號</th><th>廠商編號</th><th>產品名稱</th><th>產品代號</th><th>數量</th><th>單位</th><th>單價</th><th>稅金金額</th><th>購買日期</th><th>廠商業務</th><th>傳票代號</th><th>借方科目</th><th>貸方科目</th><th>專案代號</th><th>需求人員</th><th>輸入日期</th><th>摘要</th></tr>
+			</thead>
+			<tbody id="lists">
+			</tbody>
+		</table>
+	</div>
+</main>
+
+
+<footer class="z-depth-1">
+	<div class="fixed-action-btn horizontal" style="bottom: 45px; right: 24px;">
+	    <a class="btn-floating btn-large red" onclick="mininput()">
+	      <i class="large material-icons">mode_edit</i>
+	    </a>
+	    <ul>
+	        <li><a class="btn-floating red tooltipped" onclick="del()" data-position="top" data-delay="50" data-tooltip="刪除"><i class="material-icons">delete</i></a></li>
+
+	        <li><a class="btn-floating yellow tooltipped" onclick="inputinoutif()" data-position="top" data-delay="50" data-tooltip="顯示/隱藏"><i class="material-icons">view_list</i></a></li>
+
+	        <li><a class="btn-floating green tooltipped" onclick="show()"><i class="material-icons">publish</i></a></li>
+	        <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
+	    </ul>
+	</div>
+
+
+
+	<ul class="pagination center-align">
+	   <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+	   <li class="active"><a href="#!">1</a></li>
+	   <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+	</ul>
+</footer>
+</body>
+</html>
+  

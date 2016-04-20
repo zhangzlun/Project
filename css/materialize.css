@@ -8965,7 +8965,7 @@ textarea.materialize-textarea + label:after {
 }
 
 .input-field .prefix ~ textarea {
-  padding-top: .8rem;
+  padding-top: 1rem;
 }
 
 .input-field .prefix ~ label {

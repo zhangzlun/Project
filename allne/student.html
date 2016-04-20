@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>JSON</title>
+	<script src="http://code.jquery.com/jquery-2.1.1.js"></script>
+</head>
+<script>
+	var getData = new Object();
+	var Bruce = function() {
+
+		this.type = 'POST';
+		this.dataType = 'json';
+		this.isAsync = false;
+		this.postData = {};
+
+		this.getJSON = function(url) {
+			var result;
+			$.ajax({
+				type: this.type,
+				url: url,
+				data: this.postData,
+				dataType: this.dataType,
+				async: this.isAsync,
+				success: function(response) {
+					result = response;
+				},
+				error: function(XMLHttpRequest) {
+					//alert(XMLHttpRequest.status);
+					result = {Status: -1, Result: XMLHttpRequest.status};
+				}
+			});
+			return result;
+		}
+
+		this.setType = function(type) {
+			this.type = type; 
+		}
+
+		this.setData = function(sendData) {
+			this.postData = sendData;
+		}
+
+		this.showJSON = function(url, target) {
+			var a = JSON.stringify(this.getJSON(url));
+			$(target).html(a);
+		} 
+	}
+	var show = function(){
+		var bruce = new Bruce();
+		var response = bruce.getJSON('http://www.daren.idv.tw/allen/student_show');
+
+	
+
+		var show = new Array();
+		$.each(response.student_tbl , function(key, value){
+			show.push('<tr>');
+				show.push('<td>'+value.sid+'</td>');
+				show.push('<td>'+value.cname+'</td>');
+				show.push('<td>'+value.gender+'</td>');
+			show.push('</tr>');
+		});
+		$('tbody#lists').html(show.join(""));
+	}
+
+
+	var ist = function(){
+		var s1 = $('input[name=sid]').val();
+		var s2 = $('input[name=cname]').val();
+		var s3 = $('input[name=gender]').val();
+
+		var post ={sid:s1, cname:s2 , gender:s3};
+
+		var bruce = new Bruce();
+		bruce.setData(post);
+		var response = bruce.getJSON('http://www.daren.idv.tw/allen/student_ist');
+		// alert(JSON.stringify(response));
+		show();
+	}
+	
+
+	$(document).ready(function () {
+		show();
+	});
+
+</script>
+
+<style>
+</style>
+
+<body>
+
+	
+<main >
+
+	<input type="text" name="sid" value="1021406095"></input>
+	<input type="text" name="cname" value="汪成號"></input>
+	<input type="text" name="gender" value="女"></input>
+
+	
+	<button onclick="ist()">送出</button>
+<div class="tables ">
+
+	<table border="1" style="border-collapse:collapse;" >
+		<thead >
+			<tr><th>進貨編號</th><th>廠商編號</th><th>產品名稱</th></tr>
+		</thead>
+		<tbody id="lists">
+		<tr><td>4545</td></tr>
+		</tbody>
+	</table>
+</div>
+
+</main>
+
+</body>
+</html>
+  

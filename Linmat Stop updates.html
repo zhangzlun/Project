@@ -194,9 +194,7 @@
 		});
 	}
 
-	var search = function(){
 
-	}
 
 	// 表格點擊的動作
 	var trclick = function(){
@@ -255,17 +253,10 @@
 		           $('#gotop').stop().fadeOut("fast");
 		       }
 		});
-		$('.pagination a').click(function(){
+
+		$('#pa2').click(function(){
 	
-			var p = $(this).text()
-
-			var page = {page:p};
-			alert(JSON.stringify(page));
-
-			var pag = new Bruce();
-			pag.setData(page);
-			var response = pag.getJSON('http://www.daren.idv.tw/lin/purchase_show');
-			alert(JSON.stringify(response));
+			alert('12');
 		});
 	});
 
@@ -332,6 +323,7 @@
 		    <form class="col s12">
 
 			<div class="row">
+			
 				<div class="input-field col s3">
 					<input type="text" name="purchase_no"  class="validate" id="search"><label>進貨編號</label>
 				</div>
@@ -358,10 +350,10 @@
 				<div class="input-field col s3">
 		          <input type="text" name="tax" class="validate"><label>稅金金額</label>
 				</div>
-
+	
 
 				<div class="input-field col s3">
-		          <input type="text" name="fee_date" class="validate"><label>購買日期</label>
+		          <input type="text" name="enter_date" class="validate"><label>購買日期</label>
 		        </div>
 		         <div class="input-field col s3">
 		          <input type="text" name="vendor_sales" class="validate"><label>廠商業務</label>
@@ -421,16 +413,16 @@
 	</div>
 </main>
 <footer>
-	<ul class="pagination center-align">
-		<input type="text" name="123"></input>
-	   <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-	   <li class="active"><a href="#!">1</a></li>
-	   <li class="waves-effect"><a href="#!">2</a></li>
-	   <li class="waves-effect"><a href="#!">3</a></li>
-	   <li class="waves-effect"><a href="#!">4</a></li>
-	   <li class="waves-effect"><a href="#!">5</a></li>
-	   <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-	 </ul>
+<ul class="pagination center-align">
+    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+    <li class="active"><a href="#!">1</a></li>
+    <li class="waves-effect"><a href="#!" id="pa2">2</a></li>
+    <li class="waves-effect"><a href="#!">3</a></li>
+    <li class="waves-effect"><a href="#!">4</a></li>
+    <li class="waves-effect"><a href="#!">5</a></li>
+    <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+  </ul>
+	
 </footer>
 </body>
 </html>
