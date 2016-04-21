@@ -63,7 +63,7 @@
 
 		var all_Inputs = $("input[type=text]");
 		all_Inputs.val("");
-		$('label').toggleClass('text');
+		// $('label').toggleClass('text');
 
 		var response = bruce.getJSON('http://www.daren.idv.tw/lin/purchase_show');
 		getData = response.purchase_data;
@@ -230,17 +230,22 @@
 			e.stopPropagation(); 
 			$('.personnel').toggleClass('display-n');
 		});
-		$(document).click(function() { 
-		    if (!$("div.hidebox").hasClass("display-n")) { 
-		        $("div.hidebox").addClass("display-n"); 
-		    } 
-		}); 
+		$('.personnel').hasClass('display-n');
+	}
+
+	var dataconfirm = function(){
+		$('input[name=purchase_no]').keyup(function(){
+			var value = $(this).val();
+             $('input[name=fee_date]').val(value);
+		});
 	}
 	$(document).ready(function () {
 		show();
+		dataconfirm();
 	});
 
 </script>
+
 <style>
 	nav{background-color: #fff; font-weight:900;}
 	/*JS 使用樣式*/
@@ -266,11 +271,13 @@
 		position: absolute;
 		background-color: #fff;
 		top:120px;
+		z-index: 999;
 	}
 	.personnel{
 		position: absolute;
 		background-color: #fff;
 		top:180px;
+		z-index: 999;
 	}
 	.divhide{
 		position: absolute; 
@@ -279,7 +286,6 @@
 	#confirm{
 		position: relative;
 		margin-top: 10px;
-		right:1%;
 		z-index: 99;
 		background-color: #FFF;
 		height: 300px;
@@ -298,7 +304,7 @@
 	footer{
 		position: relative;
 		bottom: 0px;
-		height:100px;
+		height:50px;
 		background-color: #fff;
 	}
 
@@ -311,6 +317,8 @@
 		margin: 0 0 5px 0 !important;
 	}
 </style>
+
+
 <body class="#f5f5f5 grey lighten-4">
 <header>
 	<nav class="z-depth-1">
@@ -325,7 +333,7 @@
 	
 		<div class="row">
 		    <form class="col s12">
-
+				<!-- 隱藏輸入項目 -->
 		    	<div class="row hideinputbox">
 					<div class="hidebox col s6 m2 z-depth-1 IDsearchb company"><!-- company  STRAR -->
 						<div class="heade">
@@ -365,14 +373,13 @@
 				</div>
 
 				<div class="row">
-				
+					<!-- 輸入項目 -->
 					<div class="inputbox product col s5 m2">
-
 						<div class=" col #29b6f6 light-blue-text lighten-1" >
 							<h5 >產品</h5>
 						</div>
 						<div class="input-field col">
-							<input type="text" name="purchase_no"class="validate" id="search"><label>進貨編號</label>
+							<input type="text" name="purchase_no" class="validate" id="search" ><label>進貨編號</label>
 						</div>
 						<div class="input-field col">
 							<a href="#" class="divhide" id="company"><i class="small material-icons">playlist_add</i></a> <!-- 增加項目-->
@@ -383,7 +390,7 @@
 							<input type="text" name="product_code" class="validate"><label>產品代號</label>
 						</div>
 						<div class="input-field col">
-						  <input type="text" name="quantity" class="validate"><label>數量</label>
+						  <input type="text" name="quantity" class="validate"value="Alvin"><label>數量</label>
 						</div>
 						 <div class="input-field col">
 						  <input type="text" name="unit" class="validate"><label>單位</label>
@@ -407,20 +414,16 @@
 						 	<input id="first_name" type="text" class="validate"><label>專案代號</label>
 						</div>
 						<div class="input-field col">
-						  <input type="text" name="fee_date" class="validate"><label>購買日期</label>
+						  <input type="text" name="fee_date" class="validate" ><label>購買日期</label>
 						</div>
 					</div><!-- product END -->
 					
 
-					
-					<div id="confirm" class="col s8 m10  z-depth-1">
-						<table class="responsive-table centered bordered" >
-							<thead >
-								<tr><th>進貨編號</th><th>產品名稱</th><th>產品代號</th><th>數量</th><th>單位</th><th>單價</th><th>稅金金額</th><th>傳票代號</th><th>借方科目</th><th>貸方科目</th><th>專案代號</th><th>購買日期</th></tr>
-							</thead>
-							<tbody id="company">
-							</tbody>
-						</table>
+					<!-- 右邊確認框 -->
+					<div id="confirm" class="col s8 m10">
+						<div class="input-field col">
+						  <input type="text" name="fee_date" class="validate" value="123"> <label>購買日期</label>
+						</div>
 						<div class="bttn " >
 							<a onclick="out()" class="btn"><i class="material-icons right">send</i>送出</a>
 							<a onclick="del()" class="btn"><i class="material-icons right">delete</i>刪除</a>
@@ -437,7 +440,7 @@
 	
 
 
-
+	
 	<div id="tables" class="z-depth-1">
 		<table border="3" style="border-collapse:collapse;" class="responsive-table centered bordered" >
 			<thead >
