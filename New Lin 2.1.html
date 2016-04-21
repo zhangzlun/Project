@@ -3,12 +3,12 @@
 <head>
 	<meta charset="UTF-8">
 	<title>JSON</title>
-	<script src="js/jquery-2.1.4.min.js"></script>
+	<script src="http://code.jquery.com/jquery-2.1.1.js"></script>
 	<!-- materialize -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
 	<!-- Icons -->
-	<link rel="stylesheet" href="css/materialize.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
 	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<!-- animate動畫 -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/animatecss/3.5.1/animate.min.css">
@@ -234,11 +234,14 @@
 	}
 
 	var dataconfirm = function(){
-		$('input[name=purchase_no]').keyup(function(){
-			var value = $(this).val();
-             $('input[name=fee_date]').val(value);
+		$('input.addinput').focusout(function(){
+			var str = $('input[name=product_name]').val();
+			if (str.length == 0) {
+				alert('沒有數值');
+			}
 		});
 	}
+
 	$(document).ready(function () {
 		show();
 		dataconfirm();
@@ -378,16 +381,19 @@
 						<div class=" col #29b6f6 light-blue-text lighten-1" >
 							<h5 >產品</h5>
 						</div>
+
 						<div class="input-field col">
 							<input type="text" name="purchase_no" class="validate" id="search" ><label>進貨編號</label>
 						</div>
+
 						<div class="input-field col">
 							<a href="#" class="divhide" id="company"><i class="small material-icons">playlist_add</i></a> <!-- 增加項目-->
-							<input type="text" name="product_name"  class="validate"><label>產品名稱</label>
+							<input type="text" name="product_name"  class="validate addinput"><label>產品名稱</label>
 						</div>
+
 						<div class="input-field col">
 							<a href="#" class="divhide" id="personnel"><i class="small material-icons">playlist_add</i></a><!-- 增加項目-->
-							<input type="text" name="product_code" class="validate"><label>產品代號</label>
+							<input type="text" name="product_code" class="validate addinput"><label>產品代號</label>
 						</div>
 						<div class="input-field col">
 						  <input type="text" name="quantity" class="validate"value="Alvin"><label>數量</label>
@@ -417,14 +423,13 @@
 						  <input type="text" name="fee_date" class="validate" ><label>購買日期</label>
 						</div>
 					</div><!-- product END -->
-					
 
 					<!-- 右邊確認框 -->
 					<div id="confirm" class="col s8 m10">
 						<div class="input-field col">
-						  <input type="text" name="fee_date" class="validate" value="123"> <label>購買日期</label>
+							<input type="text" name="purchase_no" class="validate" id="search" ><label>進貨編號</label>
 						</div>
-						<div class="bttn " >
+						<div class="bttn" >
 							<a onclick="out()" class="btn"><i class="material-icons right">send</i>送出</a>
 							<a onclick="del()" class="btn"><i class="material-icons right">delete</i>刪除</a>
 							<a onclick="upd()" class="btn"><i class="material-icons right">mode_edit</i>修改</a>
@@ -439,8 +444,6 @@
 	</div>
 	
 
-
-	
 	<div id="tables" class="z-depth-1">
 		<table border="3" style="border-collapse:collapse;" class="responsive-table centered bordered" >
 			<thead >
@@ -450,9 +453,7 @@
 			</tbody>
 		</table>
 	</div>
-
 </main>
-
 
 <footer class="z-depth-1">
 	<div class="fixed-action-btn horizontal" style="bottom: 45px; right: 24px;">
@@ -482,7 +483,7 @@
 	   <li class="active"><a href="#!">1</a></li>
 	   <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
 	</ul>
-
 </footer>
+
 </body>
 </html>
