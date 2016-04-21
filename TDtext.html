@@ -1,259 +1,62 @@
+
+
+<!DOCTYPE html>
 <html>
-    <head>
+<head>
     <meta charset="UTF-8">
-    <title>HTML練習-JSON</title>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.js"></script>
-    <script type="text/javascript" src="http://www.daren.idv.tw/Circle/daren/daren.js"></script>
-    <script>            
-            
-        var daren = new Daren();
+    <title>JSON</title>
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <!-- materialize -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+    <!-- Icons -->
+    <link rel="stylesheet" href="css/materialize.css">
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- animate動畫 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/animatecss/3.5.1/animate.min.css">
 
-        var showData = function(data) {
-                
-            var dataArray = new Array();
-                $.each(data, function(key, value) {
-                    
-                dataArray.push('<tr>');
-                dataArray.push('<td align="center" bgcolor="lightgray">'+value.cname+'</td>');
-                dataArray.push('</tr>');
-            });
-            
-            //$('tbody#class_data').html(dataArray.join(""));
-        };
+</head>
+<html> 
+<style> 
+.hide{display:none;} 
+</style> 
+<script type="text/javascript" src="jquery-1.6.1.min.js"></script> 
+<script type="text/javascript">
+    var isChange = false;
+    $(function () {
 
-        var sendData = function() {
-
-            var cname = $('input[name=cname]').val();
-            var mobile = $('input[name=mobile]').val();
-            var weight = $('input[name=weight]').val();
-            var height = $('input[name=height]').val();
-            var country =$('input[name=country]').val();
-            var address =$('input[name=address]').val();
-
-            var postData = { 
-                             name: cname,
-                             mobile: mobile,
-                             weight: weight,
-                             height: height,
-                             country: country,
-                             adress: address
-                           };
-
-
-            daren.setData(postData);
-
-            var response = daren.getJSON('http://www.daren.idv.tw/allen/ParameterList');
-            alert(JSON.stringify(response));
-        }
-
-
-        var change = function() {
-            var country = $('input[name=country]').val();
-            $('input[name=address]').val(country);
-        }
-
-
-        var showTables = function() {
-
-            var response = daren.getJSON('http://www.daren.idv.tw/allen/showTables');
-            var show = new Array();
-
-            $.each(response.tables, function(key, value){
-                show.push('<tr id='+value.table_name+'>');
-                show.push('<td>'+value.table_name+'</td>');
-                show.push('<td>'+value.table_rows+'</td>');
-                show.push('<td>'+value.update_time+'</td>');
-                show.push('<td>'+value.table_comment+'</td>');
-                show.push('</tr>');
-            });
-
-            $('tbody#db_tables').html(show.join(""));
-
-        }
-       
-        var showColumns = function() {
-            
-            var response = daren.getJSON('http://www.daren.idv.tw/allen/showColumns?table_name=purchase_tbl');
-            var show = new Array();
-
-            $.each(response.columns, function(key, value){
-                show.push('<tr>');
-                show.push('<td>'+value.ordinal_position+'</td>');
-                show.push('<td>'+value.column_name+'</td>');
-                show.push('<td>'+value.is_nullable+'</td>');
-                show.push('<td>'+value.data_type+'</td>');
-                show.push('<td>'+value.column_type+'</td>');
-                show.push('<td>'+value.column_key+'</td>');
-                show.push('<td>'+value.column_comment+'</td>');
-                show.push('</tr>');
-            });
-
-            $('tbody#columns').html(show.join("")); 
-
-        }
-
-        var runSQL = function() {
-
-            var sql_statement = $('textarea[name=sql_statement]').val();
-            var postData = {sql_statement: sql_statement};
-            daren.setData(postData);
-            var response = daren.getJSON('http://www.daren.idv.tw/allen/ParameterList');
-            alert(JSON.stringify(response));
-        }
-
-       
-        $(document).ready(function () {             
-
-            var response = daren.getJSON('http://www.daren.idv.tw/allen/allen');
-            //showData(response.data);
-            //alert(JSON.stringify(response));
-            //alert(response.name);
-
-
-
-            $("#height").html(response.height);
-            $("#name").html(response.name);
-            $("#country").html(response.country);
-            $("#ip_addr").html(response.ip_addr);
-            $("#uid").html(response.uid);
-            $("#weight").html(response.weight);
-            $("#mobile").html(response.mobile);
-            $("#address").html(response.address)
-            //showData(response.class_data);
-
-            $('input').focus(function() {
-                $(this).addClass("chgColor2");
-            });
-
-            $('input').focusout(function() {
-                $(this).removeClass();
-            });
-           
-            showTables();
-            showColumns();
-            $('#db_tables tr').click(function(){
-               alert('123');
-            });
+        $("input,textarea,select").change(function () {
+            isChange = true;
+            $(this).addClass("editing");
         });
-            
-    </script>
-        
-    <style type="text/css">
-        th {
-            background-color: lightblue;
-        }
 
-        td {
-            color: purple;
-            text-align: center;
-        }
-
-        .chgColor {
-            background-color: yellow;
-            color: purple;
-            text-align: center;
-        }
-
-        .chgColor2 {
-            background-color: pink;
-            color: green;
-            text-align: right;
-        }
-
-        textarea {
-            font-size: 20px;
-            color: red;
-            /* background-color: pink; */
-        }
-        .on{background-color:#d0d0d0;}
-    </style>
-        
-    </head>
-    
-    <body>
-        
-        <div id="people">
-            <table border="1">
-                <tr>
-                    <th>name</th>
-                    <th>mobile</th>
-                    <th>counrtry</th>
-                    <th>Height</th>
-                    <th>weight</th>
-                    <th>address</th>
-                    <th>IP</th>
-                    <th>Uid</th>
-                </tr>
-                <tr>
-                    <td id="name"></td>
-                    <td id="mobile"></td>
-                    <td id="country"></td>
-                    <td id="height"></td>
-                    <td id="weight"></td>
-                    <td id="address"></td>
-                    <td id="ip_addr"></td>
-                    <td id="uid"></td>
-                </tr>
-
-            </table>
-        </div>
-
-        Name:<input type="text" name="cname">
-        Mobile:<input type="text" name="mobile"><br>
-        Weight:<input type="text" name="weight">
-        Height:<input type="text" name="height"><br>
-        Country:<input type="text" name="country">
-        Address:<input type="text" name="address"><br>
-
-        <button onclick="sendData();">資料送出</button>
-        <button onclick="change();">ABCDEFG</button>
-
-        <hr>
-        <button onclick="showTables();">Show Tables Now</button>
-        <div>
-            <table border="1">
-                <tr>
-                    <th>資料表名稱</th>
-                    <th>資料比數</th>
-                    <th>最後異動時間</th>
-                    <th>表格說明</th>
-                </tr>
-
-                <tbody id="db_tables">
-                    
-                </tbody>
-
-            </table>
-        </div>
-
-        <hr>
-        <button onclick="showColumns();">Show Columns Now</button>
-        <div>
-            <table border="1">
-                <tr>
-                    <th>順序</th>
-                    <th>column_name</th>
-                    <th>is_nullable</th>
-                    <th>data_type</th>
-                    <th>column_type</th>
-                    <th>column_key</th>
-                    <th>column_comment</th>
-                </tr>
-
-                <tbody id="columns">
-                    
-                </tbody>
-
-            </table>
-        </div>
-
-        <hr>
-        <div>
-            <textarea rows="20" cols="60" name="sql_statement">select * 
-            from tables</textarea><br>
-            <button onclick="runSQL();">SEND SQL</button>
-        </div>
-
-
-    </body>
+        $(window).bind('beforeunload', function (e) {
+            if (isChange || $(".editing").get().length > 0) {
+                return '★資料尚未存檔，確定是否要離開？★';
+            }
+        })
+    });
+</script>
+<body> 
+  <form action="/Home/Index" method="post">
+    <p>
+        <input type="text" value="測試資料" />
+    </p>
+    <p>
+        <input type="radio" value="true" name="radioGroup" checked="checked" />
+        <input type="radio" value="false" name="radioGroup" />
+    </p>
+    <p>
+        <select>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+        </select>
+    </p>
+    <p>
+        <a href="http://www.dotblogs.com.tw/">點部落</a>
+        <input type="submit" value="送出" />
+    </p>
+</form>
+</body > 
 </html>

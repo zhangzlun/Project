@@ -13,9 +13,6 @@
 	<!-- animate動畫 -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/animatecss/3.5.1/animate.min.css">
 
-	<link rel="https://cdn.jsdelivr.net/bootstrap.datepicker/0.1/less/datepicker.less">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap.datepicker/0.1/css/datepicker.css">
-	<script src="https://cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js"></script>
 </head>
 <script>
 	var getData = new Object();
@@ -94,9 +91,10 @@
 			dataArray.push('</tr>');
 		});
 		$('tbody#lists').html(dataArray.join(""));
-
+		// 開啟網頁啟動各項功能
 		page();
 		trclick();
+		divhide();
 	}
 
 	//新增
@@ -221,7 +219,23 @@
 			$('label').addClass('text');
 		});
 	}
-
+	// 彈出視窗控制
+	var divhide= function(){
+		$('.hidebox').addClass('display-n');
+		$('#company').click(function(e){
+			e.stopPropagation(); 
+			$('.company').toggleClass('display-n');
+		});
+		$('#personnel').click(function(e){
+			e.stopPropagation(); 
+			$('.personnel').toggleClass('display-n');
+		});
+		$(document).click(function() { 
+		    if (!$("div.hidebox").hasClass("display-n")) { 
+		        $("div.hidebox").addClass("display-n"); 
+		    } 
+		}); 
+	}
 	$(document).ready(function () {
 		show();
 	});
@@ -229,8 +243,8 @@
 </script>
 <style>
 	nav{background-color: #fff; font-weight:900;}
-	.display-n{display: none;}
 	/*JS 使用樣式*/
+	.display-n{display: none;}
 	.text{-webkit-transform:  translateY(-100%);transform: translateY(-100%);}
 	.thover:hover{ background-color:#d0d0d0;}
 	.on{background-color:#d0d0d0;}
@@ -243,13 +257,32 @@
 		background-color: #fff;
 		width: 98%;
 	}
+	.hideinputbox{
+		/*display: none;*/
+		position: relative;
+		left: 195px;
+	}
+	.company {
+		position: absolute;
+		background-color: #fff;
+		top:120px;
+	}
+	.personnel{
+		position: absolute;
+		background-color: #fff;
+		top:180px;
+	}
+	.divhide{
+		position: absolute; 
+		right:5px;
+	}
 	#confirm{
+		position: relative;
 		margin-top: 10px;
 		right:1%;
-		position: fixed;
 		z-index: 99;
 		background-color: #FFF;
-		height: 80%;
+		height: 300px;
 	}
 	#confirm .bttn{
 		position: absolute;
@@ -288,30 +321,67 @@
 </header>
 	
 <main >
-	<div id="inputdata" class="inputdata z-depth-1 ">
+	<div id="inputdata" class="inputdata z-depth-1">
 	
 		<div class="row">
 		    <form class="col s12">
+
+		    	<div class="row hideinputbox">
+					<div class="hidebox col s6 m2 z-depth-1 IDsearchb company"><!-- company  STRAR -->
+						<div class="heade">
+							<h5>廠商</h5>
+						</div>
+						<div class="input-field col s12">
+							<input type="text" name="vendor_no" class="validate"><label>廠商編號</label>
+						</div>
+						<div class="input-field col s12">
+							<input type="text" name="vendor_sales" class="validate"><label>廠商業務</label>
+						</div>
+						<div class="btns" style="position: relative; ">
+							<a href="" class="btn col s5" style="margin: 10px 8px;">確認</a>
+							<a href="" class="btn col s5" style="margin: 10px 8px;">取消</a>
+						</div>
+					</div><!-- company  END -->
+
+					<div class="hidebox personnel col s6 m2 z-depth-1">
+						<div class="heade">
+							<h5>人員</h5>
+						</div>
+						<div class="input-field col">
+							<input type="text" name="emp_no"  class="validate"><label>需求人員</label>
+						</div>
+						<div class="input-field col">
+							<input type="text" name="enter_date" class="validate"><label>輸入日期</label>
+						</div>
+						<div class="input-field col">
+						  <input type="text" name="summary" class="validate"><label>摘要</label>
+						</div>
+						<div class="btns" style="position: relative; ">
+							<a href="" class="btn col s5" style="margin: 10px 8px;">確認</a>
+
+							<a href="" class="btn col s5" style="margin: 10px 8px;">取消</a>
+						</div>
+					</div><!-- personnel END -->
+				</div>
+
 				<div class="row">
 				
-					<div class="inputbox product col s4 m2">
+					<div class="inputbox product col s5 m2">
 
 						<div class=" col #29b6f6 light-blue-text lighten-1" >
 							<h5 >產品</h5>
 						</div>
 						<div class="input-field col">
-							<input  type="text" name="purchase_no"  class="validate" id="search"><label>進貨編號</label>
+							<input type="text" name="purchase_no"class="validate" id="search"><label>進貨編號</label>
 						</div>
 						<div class="input-field col">
-							<a href="#" style=" position: absolute; right:5px;"><i class="small material-icons">playlist_add</i></a>
+							<a href="#" class="divhide" id="company"><i class="small material-icons">playlist_add</i></a> <!-- 增加項目-->
 							<input type="text" name="product_name"  class="validate"><label>產品名稱</label>
-
 						</div>
 						<div class="input-field col">
-							<a href="#" style="position: absolute;right:5px;"><i class="small material-icons">playlist_add</i></a>
+							<a href="#" class="divhide" id="personnel"><i class="small material-icons">playlist_add</i></a><!-- 增加項目-->
 							<input type="text" name="product_code" class="validate"><label>產品代號</label>
 						</div>
-
 						<div class="input-field col">
 						  <input type="text" name="quantity" class="validate"><label>數量</label>
 						</div>
@@ -339,51 +409,29 @@
 						<div class="input-field col">
 						  <input type="text" name="fee_date" class="validate"><label>購買日期</label>
 						</div>
-				
 					</div><!-- product END -->
 					
-					<div class="inputbox company col s4 m2">
 
-							<div class="input-field col">
-								<input type="text" name="vendor_no" class="validate"><label>廠商編號</label>
-							</div>
-							<div class="input-field col">
-								<input type="text" name="vendor_sales" class="validate"><label>廠商業務</label>
-							</div>
-						
-					</div><!-- company  END -->
-
-					<div class="inputbox personnel col s4 m2">
-
-							<div class="input-field col">
-								<input type="text" name="emp_no"  class="validate"><label>需求人員</label>
-							</div>
-							<div class="input-field col">
-								<input type="text" name="enter_date" class="validate"><label>輸入日期</label>
-							</div>
-							<div class="input-field col">
-							  <input type="text" name="summary" class="validate"><label>摘要</label>
-							</div>
-					</div>
-<!--				<div id="confirm" class="col m8 ">
+					
+					<div id="confirm" class="col s8 m10  z-depth-1">
 						<table class="responsive-table centered bordered" >
 							<thead >
-								<tr><th>進貨編號</th><th>產品名稱</th><th>產品代號</th><th>數量</th><th>單位</th><th>單價</th><th>稅金金額</th><th>傳票代號</th><th>借方科目</th><th>貸方科目</th><th>專案代號</th><th>購買日期</th>
+								<tr><th>進貨編號</th><th>產品名稱</th><th>產品代號</th><th>數量</th><th>單位</th><th>單價</th><th>稅金金額</th><th>傳票代號</th><th>借方科目</th><th>貸方科目</th><th>專案代號</th><th>購買日期</th></tr>
 							</thead>
 							<tbody id="company">
 							</tbody>
 						</table>
-						<div class="bttn col s4" >
+						<div class="bttn " >
 							<a onclick="out()" class="btn"><i class="material-icons right">send</i>送出</a>
 							<a onclick="del()" class="btn"><i class="material-icons right">delete</i>刪除</a>
 							<a onclick="upd()" class="btn"><i class="material-icons right">mode_edit</i>修改</a>
-							<a onclick="show()" class="btn">初始化<i style="margin-left: 5px;" class="fa fa-repeat" aria-hidden="true"></i></a>
-							<a onclick="top()" id="gotop"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
+							<a onclick="show()" class="btn">初始化
+								<i style="margin-left: 5px;" class="fa fa-repeat" aria-hidden="true"></i>
+							</a>
 					    </div>
-					</div><!--confirm END --> 
+					</div><!-- confirm END  -->
 				</div><!-- row END-->
-					
-		    </form>
+		    </form><!-- form END-->
 	    </div>
 	</div>
 	
@@ -399,6 +447,7 @@
 			</tbody>
 		</table>
 	</div>
+
 </main>
 
 
@@ -408,16 +457,22 @@
 	      <i class="large material-icons">mode_edit</i>
 	    </a>
 	    <ul>
-	        <li><a class="btn-floating red tooltipped" onclick="del()" data-position="top" data-delay="50" data-tooltip="刪除"><i class="material-icons">delete</i></a></li>
+	        <li>
+		        <a class="btn-floating red tooltipped" onclick="del()" data-position="top" data-delay="50" data-tooltip="刪除"><i class="material-icons">delete</i>
+		        </a>
+	        </li>
 
-	        <li><a class="btn-floating yellow tooltipped" onclick="inputinoutif()" data-position="top" data-delay="50" data-tooltip="顯示/隱藏"><i class="material-icons">view_list</i></a></li>
+	        <li>
+		        <a class="btn-floating yellow tooltipped" onclick="inputinoutif()" data-position="top" data-delay="50" data-tooltip="顯示/隱藏"><i class="material-icons">view_list</i>
+		        </a>
+	        </li>
 
-	        <li><a class="btn-floating green tooltipped" onclick="show()"><i class="material-icons">publish</i></a></li>
+	        <li>
+	        	<a class="btn-floating green tooltipped" onclick="show()"><i class="material-icons">publish</i></a>
+	        </li>
 	        <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
 	    </ul>
 	</div>
-
-
 
 	<ul class="pagination center-align">
 	   <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
