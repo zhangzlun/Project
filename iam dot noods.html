@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>JSON</title>
+	<script src="http://code.jquery.com/jquery-2.1.1.js"></script>
+
+</head>
+<script>
+	var getData = new Object();
+	var Bruce = function() {
+
+		this.type = 'POST';
+		this.dataType = 'json';
+		this.isAsync = false;
+		this.postData = {};
+
+		this.getJSON = function(url) {
+			var result;
+			$.ajax({
+				type: this.type,
+				url: url,
+				data: this.postData,
+				dataType: this.dataType,
+				async: this.isAsync,
+				success: function(response) {
+					result = response;
+				},
+				error: function(XMLHttpRequest) {
+					//alert(XMLHttpRequest.status);
+					result = {Status: -1, Result: XMLHttpRequest.status};
+				}
+			});
+			return result;
+		}
+
+		this.setType = function(type) {
+			this.type = type; 
+		}
+
+		this.setData = function(sendData) {
+			this.postData = sendData;
+		}
+
+		this.showJSON = function(url, target) {
+			var a = JSON.stringify(this.getJSON(url));
+			$(target).html(a);
+		} 
+	}
+
+	//接收
+	var show = function(){
+		var bruce = new Bruce();
+		var response = bruce.getJSON('http://www.daren.idv.tw/lin/purchase_show');
+		getData = response.purchase_data;
+
+		var dataArray = new Array();
+		$.each(response.purchase_data, function(key, value) {
+			dataArray.push('<tr class="thover" id="'+value.purchase_no+'">');
+
+				dataArray.push('<td>'+value.purchase_no+'</td>');
+				dataArray.push('<td>'+value.vendor_no+'</td>'); 
+				dataArray.push('<td>'+value.product_name+'</td>');
+				dataArray.push('<td>'+value.product_code+'</td>');
+				dataArray.push('<td>'+value.quantity+'</td>');
+				dataArray.push('<td>'+value.unit+'</td>');
+				dataArray.push('<td>'+value.price+'</td>');
+				dataArray.push('<td>'+value.tax+'</td>');
+				dataArray.push('<td>'+value.fee_date+'</td>');
+				dataArray.push('<td>'+value.vendor_sales+'</td>');
+				dataArray.push('<td>'+value.voucher_no+'</td>');
+				dataArray.push('<td>'+value.debit_code+'</td>');
+				dataArray.push('<td>'+value.credit_code+'</td>');
+				dataArray.push('<td>'+value.project_no+'</td>');
+				dataArray.push('<td>'+value.emp_no+'</td>');
+				dataArray.push('<td>'+value.enter_date+'</td>');
+				dataArray.push('<td>'+value.summary+'</td>');
+			dataArray.push('</tr>');
+
+			
+		});
+		$('tbody#lists').html(dataArray.join(""));
+		trclick();
+	}
+
+	//新增
+	var out = function (){
+
+		var s1 = $('input[name=purchase_no]').val();
+		var s2 = $('input[name=vendor_no]').val();
+		var s3 = $('input[name=product_name]').val();
+		var s4 = $('input[name=product_code]').val();
+		var s5 = $('input[name=quantity]').val();
+		var s6 = $('input[name=unit]').val();
+		var s7 = $('input[name=price]').val();
+		var s8 = $('input[name=tax]').val();
+		var s9 = $('input[name=fee_date]').val();
+		var s10 = $('input[name=vendor_sales]').val();
+		var s11 = $('input[name=voucher_no]').val();
+		var s12 = $('input[name=debit_code]').val();
+		var s13 = $('input[name=credit_code]').val();
+		var s14 = $('input[name=project_no]').val();
+		var s15 = $('input[name=emp_no]').val();
+		var s16 = $('input[name=enter_date]').val();
+		var s17 = $('input[name=summary]').val();
+
+		var post_input = {purchase_no:s1,vendor_no:s2, product_name:s3, product_code:s4, quantity:s5, unit:s6, price:s7, tax:s8, fee_date:s9, vendor_sales:s10, voucher_no:s11, debit_code:s12, credit_code:s13, project_no:s14, emp_no:s15 , enter_date:s16, summary:s17};
+		// alert(JSON.stringify(post_data));
+
+		var bruce = new Bruce();
+		bruce.setData(post_input);
+		var response = bruce.getJSON('http://www.daren.idv.tw/lin/purchase_ist');
+		
+		if(response.status==-1) {
+			alert(response.dbError);
+			return;
+		}
+		show();
+	}
+
+	// 刪除
+	var del = function(){
+		var s1 = $('input[name=purchase_no]').val();
+		var post_data = {purchase_no:s1};
+
+		var bruce = new Bruce();
+		bruce.setData(post_data);
+		var response = bruce.getJSON('http://www.daren.idv.tw/lin/purchase_del');
+		show();
+	}
+
+	//修改
+	var upd = function(){
+		var s1 = $('input[name=purchase_no]').val();
+		var s2 = $('input[name=vendor_no]').val();
+		var s3 = $('input[name=product_name]').val();
+		var s4 = $('input[name=product_code]').val();
+		var s5 = $('input[name=quantity]').val();
+		var s6 = $('input[name=unit]').val();
+		var s7 = $('input[name=price]').val();
+		var s8 = $('input[name=tax]').val();
+		var s9 = $('input[name=fee_date]').val();
+		var s10 = $('input[name=vendor_sales]').val();
+		var s11 = $('input[name=voucher_no]').val();
+		var s12 = $('input[name=debit_code]').val();
+		var s13 = $('input[name=credit_code]').val();
+		var s14 = $('input[name=project_no]').val();
+		var s15 = $('input[name=emp_no]').val();
+		var s16 = $('input[name=enter_date]').val();
+		var s17 = $('input[name=summary]').val();
+
+		var post_input = {purchase_no:s1,vendor_no:s2, product_name:s3, product_code:s4, quantity:s5, unit:s6, price:s7, tax:s8, fee_date:s9, vendor_sales:s10, voucher_no:s11, debit_code:s12, credit_code:s13, project_no:s14, emp_no:s15 , enter_date:s16, summary:s17};
+
+
+		var bruce = new Bruce();
+		bruce.setData(post_input);
+		var response = bruce.getJSON('http://www.daren.idv.tw/lin/purchase_upd');
+
+
+		show();
+	}
+
+	var getOne = function(purchase_no) {
+		$.each(getData, function(key, value) {
+			if(purchase_no===value.purchase_no) {
+				$('input[name=purchase_no]').val(value.purchase_no); 
+				$('input[name=vendor_no]').val(value.vendor_no);
+				$('input[name=product_name]').val(value.product_name);
+				$('input[name=product_code]').val(value.product_code);
+				$('input[name=quantity]').val(value.quantity);
+				$('input[name=unit]').val(value.unit);
+				$('input[name=price]').val(value.price);
+				$('input[name=tax]').val(value.tax);
+				$('input[name=fee_date]').val(value.fee_date);
+				$('input[name=vendor_sales]').val(value.vendor_sales);
+				$('input[name=voucher_no]').val(value.voucher_no);
+				$('input[name=debit_code]').val(value.debit_code);
+				$('input[name=credit_code]').val(value.credit_code);
+				$('input[name=project_no]').val(value.project_no);
+				$('input[name=emp_no]').val(value.emp_no);
+				$('input[name=enter_date]').val(value.enter_date);
+				$('input[name=summary]').val(value.summary);
+			}
+		});
+	}
+
+
+
+	// 表格點擊的動作
+	var trclick = function(){
+		$('#lists tr').click(function(){
+			$(this).addClass('on').siblings('.on').removeClass('on');
+			getOne($(this).attr('id'));
+		});
+	}
+
+	
+	$(document).ready(function () {
+		show();
+	});
+
+</script>
+<style>
+	.thover:hover{ background-color:#d0d0d0;}
+	.on{background-color:#d0d0d0;}
+	input{margin: 0px 10px; width:8em}
+	li{list-style-type: none; position: relative; left: -10px;margin: 10px;}
+	.text{-webkit-transform: translateY(-100%);transform: translateY(-100%);}
+	.inputoutbox{
+		height: 30%
+	}
+	.inputbox{
+		width: 20%;
+		
+	}
+	
+	.bttn{
+		margin: 20px;
+	}
+	.bttn a{
+		margin: 0px 10px;
+	}
+	.a{ 
+		position: relative;
+		background-color: red;
+		width: 300px;
+		height: 300px;
+	 }
+</style>
+<body>
+
+	
+<main >
+
+	<div id="inputdata" class="inputdata z-depth-2">
+	
+		<div calss"inputoutbox">
+		    <form class="col s12">
+
+				<div class="row">
+					<div class="inputbox product col s4 m2">
+
+							<div class=" col #29b6f6 light-blue-text lighten-1" >
+								<h4 >產品</h4>
+							</div>
+							<div class="input-field col">
+								<input  type="text" name="purchase_no"  class="validate" id="search"><label>進貨編號</label>
+							</div>
+							<div class="input-field col">
+								<input type="text" name="product_name"  class="validate"><label>產品名稱</label>
+							</div>
+							<div class="input-field col">
+							  <input type="text" name="product_code" class="validate"><label>產品代號</label>
+							</div>
+
+							<div class="input-field col">
+							  <input type="text" name="quantity" class="validate"><label>數量</label>
+							</div>
+							 <div class="input-field col">
+							  <input type="text" name="unit" class="validate"><label>單位</label>
+							</div>
+							<div class="input-field col">
+							  <input type="text" name="price"  class="validate"><label>單價</label>
+							</div>
+							<div class="input-field col">
+							  <input type="text" name="tax" class="validate"><label>稅金金額</label>
+							</div>
+							<div class="input-field col">
+							  <input type="text" name="voucher_no"  class="validate"><label>傳票代號</label>
+							</div>
+							<div class="input-field col">
+							  <input type="text" name="debit_code" class="validate"><label>借方科目</label>
+							</div>
+							<div class="input-field col">
+								<input type="text" name="credit_code" class="validate"><label>貸方科目</label>
+							</div>
+							<div class="input-field col">
+							 	<input id="first_name" type="text" class="validate"><label>專案代號</label>
+							</div>
+							<div class="input-field col">
+							  <input id="dates" name="fee_date" class=".datepicker"><label class="text">購買日期</label>
+							</div>
+					</div>
+						
+					<div class="inputbox company col s4 m2">
+
+						<div class=" col #29b6f6 light-blue-text lighten-1" >
+							<h4 >廠商</h4>
+						</div>
+						<div class="input-field col">
+							<input type="text" name="vendor_no" class="validate"><label>廠商編號</label>
+						</div>
+						<div class="input-field col">
+							<input type="text" name="vendor_sales" class="validate"><label>廠商業務</label>
+						</div>
+						
+					</div>
+					<div class="inputbox personnel">
+
+						<div class=" col #29b6f6 light-blue-text lighten-1" >
+							<h4>人員</h4>
+						</div>
+						<div class="input-field col">
+							<input type="text" name="emp_no"  class="validate"><label>需求人員</label>
+						</div>
+						<div class="input-field col">
+							<input type="text" name="enter_date" class="validate"><label>輸入日期</label>
+						</div>
+						<div class="input-field col">
+						  <input type="text" name="summary" class="validate"><label>摘要</label>
+						</div>
+					</div>
+
+					<div class="bttn">
+						<a onclick="out()" class="btn"><i class="right">send</i>送出</a>
+						<a onclick="del()" class="btn"><i class="right">delete</i>刪除</a>
+						<a onclick="upd()" class="btn"><i class="right">mode_edit</i>修改</a>
+				    </div>
+				</div>
+		    </form>
+	    </div>
+	</div>
+	
+
+
+
+	<div class="tables ">
+		<table border="3" style="border-collapse:collapse;" class="responsive-table centered bordered" >
+			<thead >
+				<tr><th>進貨編號</th><th>廠商編號</th><th>產品名稱</th><th>產品代號</th><th>數量</th><th>單位</th><th>單價</th><th>稅金金額</th><th>購買日期</th><th>廠商業務</th><th>傳票代號</th><th>借方科目</th><th>貸方科目</th><th>專案代號</th><th>需求人員</th><th>輸入日期</th><th>摘要</th></tr>
+			</thead>
+			<tbody id="lists">
+			</tbody>
+		</table>
+	</div>
+</main>
+ 	
+</body>
+</html>

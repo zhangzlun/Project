@@ -12,8 +12,6 @@
 	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<!-- animate動畫 -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/animatecss/3.5.1/animate.min.css">
-
-	1
 </head>
 <script>
 	var getData = new Object();
@@ -93,7 +91,7 @@
 
 			
 		});
-		$('tbody#lists').html(dataArray.join(""));
+		$('tfoot#lists').html(dataArray.join(""));
 		trclick();
 		search();	
 	}
@@ -319,7 +317,7 @@
 	    </ul>
 	</div>
 
-	<div id="inputdata" class="inputdata z-depth-2">
+	<div id="inputdata" class="mininputdata z-depth-2">
 	
 		<div class="row">
 		    <form class="col s12">
@@ -399,6 +397,7 @@
 			</div>
 		    </form>
 	    </div>
+
 	</div>
 	
 
@@ -409,8 +408,15 @@
 			<thead >
 				<tr><th>進貨編號</th><th>廠商編號</th><th>產品名稱</th><th>產品代號</th><th>數量</th><th>單位</th><th>單價</th><th>稅金金額</th><th>購買日期</th><th>廠商業務</th><th>傳票代號</th><th>借方科目</th><th>貸方科目</th><th>專案代號</th><th>需求人員</th><th>輸入日期</th><th>摘要</th></tr>
 			</thead>
-			<tbody id="lists">
+			<tbody >
+				<tr>
+					<td>
+						<input type="text" name="purchase_no" id="search">
+					</td>
+				</tr>
 			</tbody>
+			<tfoot id="lists">
+			</tfoot>
 		</table>
 	</div>
 </main>
